@@ -1,0 +1,64 @@
+{% extends "../../layouts/admin.html" %}
+
+
+
+{% block content %}
+
+
+
+    <div class="ui menu">
+        <div class="item">
+            <div class="ui primary button" id="addCategoria">Aggiungi una Categoria</div>
+        </div>
+    </div>
+
+    <table class="ui selectable celled table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Ordine</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorie %}
+                <tr>
+                    <td>{{categoria.name}}</td>
+                    <td>{{categoria.ordine}}</td>
+                    <td><div class="ui secondary basic button" id="vedi" documentid="{{categoria._id}}">Vedi</div></td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    {% include "./form.html" %}
+
+{% endblock %}
+
+{% block myScript %}
+<script type="text/javascript">
+
+        $( "#addCategoria" ).on( "click", function() {
+            $('.ui.modal').modal('show');
+            console.log ('click');
+        });
+
+        $('#vedi').click(function() {
+            $varName = $(this).attr('documentid');
+            console.log($varName);
+        });
+
+
+        $('.ui.form')
+          .form({
+            fields: {
+              name     : 'empty',
+              ordine   : 'empty'
+            }
+          });
+
+
+</script>
+{% endblock %}

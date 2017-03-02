@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        {% block title %}
+            <title>Finanza Domani</title>
+        {% endblock %}
+
+        {% block description %}
+            <meta name="description" content="Il sito che ti guida nei tuoi investimenti in borsa">
+        {% endblock %}
+
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="/admin.css">
+        <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous"></script>
+        <script src="/semantic/dist/semantic.min.js"></script>
+
+    </head>
+
+<body>
+
+
+<div class="ui stackable grid">
+    <div class="row">
+        <div class="two wide column">
+
+            <a href="/admin"><img src="https://dato-images.imgix.net/702/1485530920-finanzadomani-png?auto=format&h=40&fit=crop&crop=entropy."> </a>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="three wide column">
+
+            <div class="ui vertical pointing menu">
+                <a class="item" href="/admin">
+                    Home
+                </a>
+                <div class="item">
+                    <div class="header">Contenuti</div>
+
+                    <div class="menu">
+                      <a class="item active" href="/admin/articoli">Articoli</a>
+                      <a class="item" href="/admin/categorie">Categorie</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="thirteen wide column">
+            {% block content %}{% endblock %}
+        </div>
+
+    </div>
+</div>
+
+{% block myScript %}{% endblock %}
+
+</body>
+</html>

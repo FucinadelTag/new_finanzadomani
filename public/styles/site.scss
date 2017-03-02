@@ -1,0 +1,138 @@
+// // Bootstrap
+// // =========
+
+// // Bootstrap can be removed entirely by deleting this line.
+
+// @import "bootstrap/bootstrap";
+
+// // The easiest way to customise Bootstrap variables while
+// // being able to easily override the source files with new
+// // versions is to override the ones you want in another file.
+// //
+// // You can also add your own custom variables to this file for
+// // use in your site stylesheets.
+
+// @import "site/variables";
+
+
+// // Site Styles
+// // ===========
+
+// // Add your own site style includes here
+// @import "site/layout";
+
+@import 'settings';
+
+$global-font-size: 95%;
+
+@import '../../node_modules/foundation-sites/scss/foundation';
+@include foundation-everything (true);
+
+h1 {
+
+        font-weight: 900;
+    }
+
+
+
+.hidden {
+    visibility: hidden;
+    display: inline;
+
+        label {
+            display: inline;
+            visibility: hidden;
+        }
+}
+
+.testo {
+    img {
+        float: left;
+        margin-right: 14px;
+    }
+}
+
+div.spazio_bianco {
+  height: 2.5rem;
+}
+
+.abstract {
+    font-style: italic;
+    color: scale-color($black, $lightness: 15%);
+    font-size: 105%;
+}
+
+
+small {
+    font-style: italic;
+    color: $dark-gray;
+}
+
+span.titolo_rubrica_piccolo {
+    background-color: #306c81;
+    color: $white;
+    padding: 5px;
+    font-size: 90%;
+    margin-bottom: 10px;
+    display: block;
+}
+
+article {
+
+    h1 {
+        margin-bottom: rem-calc(1);
+        line-height: 1;
+        font-size: rem-calc(30);
+        font-weight: 900;
+    }
+
+    h2 {
+        font-size: rem-calc(25);
+        font-weight: 900;
+    }
+
+    a {
+        color: $black;
+        &:hover {
+            color: scale-color($black, $lightness: 15%);
+        }
+    }
+
+
+}
+
+.principale {
+    background-color: #028dbb;
+    font-weight: 900;
+
+    a {
+        color: $white;
+        &:hover {
+            color: scale-color($white, $lightness: -15%);
+        }
+    }
+
+}
+
+.destra {
+
+    article {
+
+        h2 {
+            font-size: rem-calc(16);
+            font-weight: 350;
+        }
+
+        a {
+            color: $black;
+            &:hover {
+                color: scale-color($black, $lightness: 15%);
+            }
+            font-size: rem-calc(12);
+        }
+
+
+    }
+
+
+}
