@@ -25,7 +25,7 @@
                 <tr>
                     <td>{{categoria.name}}</td>
                     <td>{{categoria.ordine}}</td>
-                    <td><div class="ui secondary basic button" id="vedi" documentid="{{categoria._id}}">Vedi</div></td>
+                    <td><div class="ui secondary basic button vedi" documentid="{{categoria._id}}">Vedi</div></td>
                 </tr>
 
             {% endfor %}
@@ -45,9 +45,9 @@
             console.log ('click');
         });
 
-        $('#vedi').click(function() {
-            $varName = $(this).attr('documentid');
-            console.log($varName);
+        $('.vedi').click(function() {
+            //$varName = $(this).attr('documentid');
+            console.log($(this).attr('documentid'));
         });
 
 
