@@ -23,3 +23,21 @@ exports.aggiungi = function(req, res, next) {
 
     //res.render('admin/categories/index', { title: 'Hey', message: 'Hello ADMIN there!' })
 };
+
+
+exports.edit = function(req, res, next) {
+
+    console.log (req.params);
+
+    let id = req.params.categoriaId;
+
+    PostCategory.findById(id, function (err, categoria) {
+        console.log (req.categoria);
+        res.render('admin/categories/edit', { categoria: categoria})
+
+    });
+
+
+
+    //res.render('admin/categories/index', { title: 'Hey', message: 'Hello ADMIN there!' })
+};

@@ -1,25 +1,31 @@
-
-<div class="ui modal">
-    <i class="close icon"></i>
-    <div class="header">
-        Categoria
+<form class="ui form large" method="post">
+    <div class="two fields">
+        <div class="required field">
+            <label>Nome</label>
+            <input type="text" name="name" value="{{categoria.name}}">
+        </div>
+        <div class="required field">
+            <label>Ordine</label>
+            <input type="number" name="ordine" value="{{categoria.ordine}}" placeholder="Ordine di visualizzazione delle categorie">
+        </div>
     </div>
-    <form class="ui large form" method="post" action="aggiungi">
-        <div class="two fields">
-            <div class="required field">
-                <label>Nome</label>
-                <input type="text" name="name">
-            </div>
-            <div class="required field">
-                <label>Ordine</label>
-                <input type="number" name="ordine" placeholder="Ordine di visualizzazione delle categorie">
-            </div>
-        </div>
-        <div class="field">
-            <label>Text</label>
-            <textarea name="description" rows="5"></textarea>
-        </div>
-        <div class="ui primary submit button">Submit</div>
-        <div class="ui error message"></div>
-    </form>
-</div>
+    <div class="field">
+        <label>Text</label>
+        <textarea name="description" rows="5">{{categoria.description}}</textarea>
+    </div>
+    <div class="ui primary submit button"><i class="save icon"></i> Invia</div>
+</form>
+
+
+<script type="text/javascript">
+
+        $('.ui.form')
+            .form({
+                fields: {
+                    name     : 'empty',
+                    ordine   : 'empty'
+                },
+                inline : true
+        });
+
+</script>

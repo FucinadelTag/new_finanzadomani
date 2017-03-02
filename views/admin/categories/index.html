@@ -6,9 +6,9 @@
 
 
 
-    <div class="ui menu">
+    <div class="ui small menu">
         <div class="item">
-            <div class="ui primary button" id="addCategoria">Aggiungi una Categoria</div>
+            <a href="#" id="addCategoria" title="Aggiungi Categoria"><i class="add square icon"></i> Aggiungi</a>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
                 <tr>
                     <td>{{categoria.name}}</td>
                     <td>{{categoria.ordine}}</td>
-                    <td><div class="ui secondary basic button vedi" documentid="{{categoria._id}}">Vedi</div></td>
+                    <td><div class="tiny ui icon button vedi" documentid="{{categoria._id}}"><i class="edit icon"></i></div></td>
                 </tr>
 
             {% endfor %}
@@ -33,7 +33,13 @@
     </table>
 
 
-    {% include "./form.html" %}
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Categoria
+        </div>
+        {% include "./form.html" %}
+    </div>
 
 {% endblock %}
 
@@ -42,23 +48,14 @@
 
         $( "#addCategoria" ).on( "click", function() {
             $('.ui.modal').modal('show');
-            console.log ('click');
         });
 
         $('.vedi').click(function() {
             //$varName = $(this).attr('documentid');
             console.log($(this).attr('documentid'));
+
+            $(location).attr('href', '/admin/categorie/edit/' + $(this).attr('documentid'))
         });
-
-
-        $('.ui.form')
-          .form({
-            fields: {
-              name     : 'empty',
-              ordine   : 'empty'
-            }
-          });
-
 
 </script>
 {% endblock %}
