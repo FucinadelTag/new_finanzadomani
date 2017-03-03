@@ -24,6 +24,7 @@
     "mongoose-timestamp": "^0.6.0",
     "node-sass-middleware": "^0.11.0",
     "nunjucks": "^3.0.0",
+    "nunjucks-date-filter": "^0.1.1",
     "path": "^0.12.7",
     "semantic-ui": "^2.2.9",
     "slug": "^0.9.1"

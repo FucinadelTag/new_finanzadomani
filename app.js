@@ -1,5 +1,6 @@
 var express             = require('express')
-var expressNunjucks     = require('express-nunjucks')
+var expressNunjucks     = require('express-nunjucks');
+var dateFilter          = require('nunjucks-date-filter');
 var session             = require('express-session');
 var flash               = require('express-flash');
 var cookieParser        = require('cookie-parser');
@@ -37,6 +38,8 @@ const njk = expressNunjucks(app, {
     watch: true,
     noCache: true
 });
+
+njk.env.addFilter('date', dateFilter);
 
 //MONGOOSE
 var mongoDB = process.env.MONGO_URI;

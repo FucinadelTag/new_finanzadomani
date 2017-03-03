@@ -4,70 +4,84 @@
 
 {% block content %}
 
+
     <div class="ui small menu">
         <div class="item">
            <a href="/admin/articoli/"><i class="caret left icon"></i> Articoli</a>
         </div>
+        <div class="item">
+           <a href="#" id="addParagrafo"><i class="add square icon"></i> Paragrafo</a>
+        </div>
     </div>
 
-    <form class="ui form" method="post" action="/admin/articoli/edit" enctype="multipart/form-data">
-        <input type="hidden" name="_id" value="{{articolo._id}}">
+    <div class="ui top attached tabular menu">
+        <a class="active item" data-tab="datiPrincipali">Dati Articolo</a>
+        <a class="item" data-tab="paragrafi">Paragrafi</a>
+    </div>
 
-        <div class="two fields">
-            <div class="required field">
-                <label>Titolo</label>
-                <input type="text" name="titolo" value="{{articolo.titolo}}">
-                <span class="informazioni">Slug: {{articolo.slug}}</span>
-            </div>
-            <div class="field">
-                <label>Stato</label>
-                <div class="ui selection dropdown">
-                  <input type="hidden" name="stato" value="{{articolo.stato}}">
-                  <i class="dropdown icon"></i>
-                  <div class="default text">Stato</div>
-                  <div class="menu">
-                      <div class="item" data-value="draft">Draft</div>
-                      <div class="item" data-value="pubblicato">Pubblicato</div>
+    <div class="ui bottom attached active tab segment" data-tab="datiPrincipali">
+        <form class="ui form" method="post" action="/admin/articoli/edit" enctype="multipart/form-data">
+            <input type="hidden" name="_id" value="{{articolo._id}}">
+
+            <div class="two fields">
+                <div class="required field">
+                    <label>Titolo</label>
+                    <input type="text" name="titolo" value="{{articolo.titolo}}">
+                    <span class="informazioni">Slug: {{articolo.slug}}</span>
+                </div>
+                <div class="field">
+                    <label>Stato</label>
+                    <div class="ui selection dropdown">
+                      <input type="hidden" name="stato" value="{{articolo.stato}}">
+                      <i class="dropdown icon"></i>
+                      <div class="default text">Stato</div>
+                      <div class="menu">
+                          <div class="item" data-value="draft">Draft</div>
+                          <div class="item" data-value="pubblicato">Pubblicato</div>
+                      </div>
                   </div>
-              </div>
+                </div>
             </div>
-        </div>
-        <div class="two fields">
-            <div class="field">
-                <label>Data Pubblicazione</label>
-                <input type="date" name="dataPubblicazione" value="{{articolo.dataPubblicazione}}">
-            </div>
-            <div class="field">
-                <label>Categoria</label>
-                <div class="ui selection dropdown">
-                  <input type="hidden" name="categoria" value="{{articolo.categoria}}">
-                  <i class="dropdown icon"></i>
-                  <div class="default text">Stato</div>
-                  <div class="menu">
-                        {% for categoria in categorie %}
-                            <div class="item" data-value="{{categoria._id}}">{{categoria.name}}</div>
-                        {% endfor %}
-                      <div class="item" data-value="pubblicato">Pubblicato</div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Data Pubblicazione</label>
+                    <input type="date" name="dataPubblicazione" value="{{articolo.dataPubblicazione | date("YYYY-MM-DD")}}">
+                </div>
+                <div class="field">
+                    <label>Categoria</label>
+                    <div class="ui selection dropdown">
+                      <input type="hidden" name="categoria" value="{{articolo.categoria}}">
+                      <i class="dropdown icon"></i>
+                      <div class="default text">Stato</div>
+                      <div class="menu">
+                            {% for categoria in categorie %}
+                                <div class="item" data-value="{{categoria._id}}">{{categoria.name}}</div>
+                            {% endfor %}
+                          <div class="item" data-value="pubblicato">Pubblicato</div>
+                      </div>
                   </div>
-              </div>
+                </div>
             </div>
-        </div>
-        <div class="two fields">
+            <div class="two fields">
+                <div class="field">
+                    <label>Abstract</label>
+                    <textarea name="abstract" rows="5">{{articolo.abstract}}</textarea>
+                </div>
+                <div class="field">
+                    <label>Immagine</label>
+                    <input type="file" name="immagine" value="{{articolo.immagine}}">
+                </div>
+            </div>
             <div class="field">
-                <label>Abstract</label>
-                <textarea name="abstract" rows="5">{{articolo.abstract}}</textarea>
+                <label>Consiglio</label>
+                <textarea name="consiglio" rows="5">{{articolo.consiglio}}</textarea>
             </div>
-            <div class="field">
-                <label>Immagine</label>
-                <input type="file" name="immagine" value="{{articolo.immagine}}">
-            </div>
-        </div>
-        <div class="field">
-            <label>Consiglio</label>
-            <textarea name="consiglio" rows="5">{{articolo.consiglio}}</textarea>
-        </div>
-        <div class="ui primary submit small button"><i class="save icon"></i> Invia</div>
-    </form>
+            <div class="ui primary submit small button sticky"><i class="save icon"></i> Salva</div>
+        </form>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="paragrafi">
+        Paragrafi
+    </div>
 
 {% endblock %}
 
@@ -82,6 +96,12 @@
                 },
                 inline : true
         });
+
+        $( "#addParagrafo" ).on( "click", function() {
+            $('.ui.menu').find('.item').tab('change tab', 'paragrafi')
+        });
+
+        $('.menu .item').tab();
 
         $('.ui.selection.dropdown').dropdown();
 
