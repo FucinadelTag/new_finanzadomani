@@ -1,8 +1,11 @@
-<form class="ui form large" method="post">
+<form class="ui form" method="post" action="/admin/categorie/edit">
+    <input type="hidden" name="_id" value="{{categoria._id}}">
+
     <div class="two fields">
         <div class="required field">
             <label>Nome</label>
             <input type="text" name="name" value="{{categoria.name}}">
+            <span class="informazioni">Slug: {{categoria.slug}}</span>
         </div>
         <div class="required field">
             <label>Ordine</label>
@@ -13,7 +16,7 @@
         <label>Text</label>
         <textarea name="description" rows="5">{{categoria.description}}</textarea>
     </div>
-    <div class="ui primary submit button"><i class="save icon"></i> Invia</div>
+    <div class="ui primary submit small button"><i class="save icon"></i> Invia</div>
 </form>
 
 

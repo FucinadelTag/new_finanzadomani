@@ -1,0 +1,73 @@
+{% extends "../../layouts/admin.html" %}
+
+
+{% block content %}
+
+
+    <div class="ui small menu">
+        <div class="item">
+            <a href="#" id="addArticolo" title="Aggiungi Articolo"><i class="add square icon"></i> Aggiungi</a>
+        </div>
+    </div>
+
+    <table class="ui selectable celled table">
+        <thead>
+            <tr>
+                <th>Titolo</th>
+                <th>Slug</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for articolo in articoli %}
+                <tr>
+                    <td>{{articolo.titolo}}</td>
+                    <td>{{articolo.slug}}</td>
+                    <td><div class="tiny ui icon button vedi" documentid="{{articolo._id}}"><i class="edit icon"></i></div></td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Titolo Articolo
+        </div>
+        <form class="ui form" method="post" action="/admin/articoli/aggiungi">
+            <div class="required field">
+                <label>Titolo</label>
+                <input type="text" name="titolo">
+            </div>
+            <div class="ui primary submit small button"><i class="save icon"></i> Invia</div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block myScript %}
+<script type="text/javascript">
+
+        $('.ui.form')
+            .form({
+                fields: {
+                    titolo     : 'empty'
+                },
+                inline : true
+        });
+
+        $( "#addArticolo" ).on( "click", function() {
+            $('.ui.modal').modal('show');
+        });
+
+        $('.vedi').click(function() {
+            //$varName = $(this).attr('documentid');
+            console.log($(this).attr('documentid'));
+
+            $(location).attr('href', '/admin/articoli/vedi/' + $(this).attr('documentid'))
+        });
+
+</script>
+{% endblock %}

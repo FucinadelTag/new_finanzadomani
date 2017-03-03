@@ -58,6 +58,29 @@
         </div>
 
         <div class="thirteen wide column">
+
+            {% block flashMessageBlock %}
+                {% if expressFlash !='' %}
+                    <div class="ui small warning message">
+                        <i class="close icon"></i>
+                        {{expressFlash}}
+                    </div>
+                {% endif %}
+
+            <script type="text/javascript">
+                $('.message .close')
+                  .on('click', function() {
+                    $(this)
+                      .closest('.message')
+                      .transition('fade')
+                    ;
+                  })
+                ;
+
+            </script>
+
+            {% endblock %}
+
             {% block content %}{% endblock %}
         </div>
 

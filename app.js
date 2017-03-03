@@ -1,13 +1,33 @@
 var express             = require('express')
 var expressNunjucks     = require('express-nunjucks')
+var session             = require('express-session');
+var flash               = require('express-flash');
+var cookieParser        = require('cookie-parser');
 var bodyParser          = require('body-parser');
 var sassMiddleware      = require('node-sass-middleware')
 var path                = require('path')
 var mongoose            = require('mongoose');
+const busboyBodyParser  = require('busboy-body-parser');
+
 
 
 //APP
 var app = express();
+var sessionStore = new session.MemoryStore;
+
+
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(session({
+    cookie: { maxAge: 60000 },
+    store: sessionStore,
+    saveUninitialized: true,
+    resave: 'true',
+    secret: 'secret'
+}));
+app.use(flash());
+
+//READ ENV CONSTANT
+require('dotenv').config()
 
 
 //CONFIG NUNJUCKS
@@ -19,7 +39,7 @@ const njk = expressNunjucks(app, {
 });
 
 //MONGOOSE
-var mongoDB = 'mongodb://lorenzo.caldara:lorenzo74@ds145009.mlab.com:45009/dev_finanzadomani';
+var mongoDB = process.env.MONGO_URI;
 mongoose.connect(mongoDB);
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -38,6 +58,7 @@ app.use(sassMiddleware({
 //BODY
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(busboyBodyParser());
 
 //PUBLIC
 app.use(express.static(path.join(__dirname, 'public')));
