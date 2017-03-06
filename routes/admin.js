@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 var index_controller = require('../controllers/admin/indexController');
 
 var categorie_controller = require('../controllers/admin/categoriesController');
@@ -18,5 +19,7 @@ router.get('/articoli', articoli_controller.list);
 router.post('/articoli/aggiungi', articoli_controller.aggiungi);
 router.post('/articoli/edit', articoli_controller.edit);
 router.get('/articoli/vedi/:articoloId', articoli_controller.vedi);
+router.post('/articoli/paragrafi/edit', articoli_controller.paragrafiEdit);
+router.get('/articoli/paragrafi/delete/:articoloId/:paragrafoId', articoli_controller.paragrafiDelete);
 
 module.exports = router

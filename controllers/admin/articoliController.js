@@ -46,26 +46,6 @@ exports.edit = function(req, res, next) {
     const formData = (req.body);
     const id = (req.body._id);
 
-    if (req.files.immagine) {
-
-        var imageData = req.files.immagine;
-
-        const imageDataName = id +'_'+ imageData.name;
-
-        formData.immagine = imageDataName;
-
-        s3.putObject({
-            Body: imageData.data,
-            Key: imageDataName
-        }, function(error, data) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log("success uploading to s3");
-            }
-        });
-    }
-
     console.log (formData);
 
     Articoli.findOneAndUpdate({_id: id}, formData, { new: true, upsert: false })
@@ -98,4 +78,43 @@ exports.vedi = function(req, res, next) {
 
     });
     //res.render('admin/categories/index', { title: 'Hey', message: 'Hello ADMIN there!' })
+};
+
+exports.paragrafiDelete = function(req, res, next) {
+
+    let articoloId = req.params.articoloId;
+    const paragrafoId = req.params.paragrafoId;
+
+
+    Articoli.findById(articoloId, function (err, articolo) {
+        let paragrafo = articolo.paragrafi.id(paragrafoId).remove();
+        articolo.save(function (err) {
+            if (err) console.log(err);
+            req.flash('success', 'Paragrafo eliminato con successo');
+            res.redirect('/admin/articoli/vedi/' + articoloId + '#/paragrafi');
+        });
+
+    });
+    //res.render('admin/categories/index', { title: 'Hey', message: 'Hello ADMIN there!' })
+};
+
+exports.paragrafiEdit = function(req, res, next) {
+
+    const formData = (req.body);
+    const articoloId = formData.articoloId;
+
+    delete formData.articoloId;
+
+    Articoli.findById(articoloId, function (err, articolo) {
+
+        articolo.paragrafi.push(formData);
+
+        articolo.save(function (err) {
+            if (err) return console.error(err);
+            req.flash('success', 'Paragrafo salvato con successo');
+            res.redirect('/admin/articoli/vedi/' + articoloId);
+        });
+
+    });
+
 };

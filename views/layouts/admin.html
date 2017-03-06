@@ -22,6 +22,8 @@
           integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
           crossorigin="anonymous"></script>
         <script src="/semantic/dist/semantic.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js" ></script>
 
     </head>
 
@@ -30,26 +32,20 @@
 
 <div class="ui stackable grid">
     <div class="row">
-        <div class="two wide column">
-
-            <a href="/admin"><img src="https://dato-images.imgix.net/702/1485530920-finanzadomani-png?auto=format&h=40&fit=crop&crop=entropy."> </a>
-
-        </div>
-    </div>
-
-    <div class="row">
         <div class="three wide column">
+            <a href="/admin"><img src="https://dato-images.imgix.net/702/1485530920-finanzadomani-png?auto=format&h=40&fit=crop&crop=entropy."> </a>
 
             <div class="ui vertical pointing menu">
                 <a class="item" href="/admin">
-                    Home
+                    Home {{activeMenu}}
                 </a>
                 <div class="item">
                     <div class="header">Contenuti</div>
 
                     <div class="menu">
-                      <a class="item active" href="/admin/articoli">Articoli</a>
-                      <a class="item" href="/admin/categorie">Categorie</a>
+                    {% for menu in adminMenu %}
+                      <a class="item {{menu.active}}" href="/admin/{{menu.key}}">{{menu.nome}}</a>
+                    {% endfor %}
                     </div>
 
                 </div>
@@ -65,19 +61,20 @@
                         <i class="close icon"></i>
                         {{expressFlash}}
                     </div>
+
+
+                    <script type="text/javascript">
+                        $('.message .close')
+                          .on('click', function() {
+                            $(this)
+                              .closest('.message')
+                              .transition('fade')
+                            ;
+                          })
+                        ;
+
+                    </script>
                 {% endif %}
-
-            <script type="text/javascript">
-                $('.message .close')
-                  .on('click', function() {
-                    $(this)
-                      .closest('.message')
-                      .transition('fade')
-                    ;
-                  })
-                ;
-
-            </script>
 
             {% endblock %}
 

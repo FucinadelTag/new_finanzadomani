@@ -1,6 +1,8 @@
 var express             = require('express')
 var expressNunjucks     = require('express-nunjucks');
 var dateFilter          = require('nunjucks-date-filter');
+var imgxFilter          = require('./lib/nunjucks/imgx-filter');
+var json_encode          = require('./lib/nunjucks/json_encode');
 var session             = require('express-session');
 var flash               = require('express-flash');
 var cookieParser        = require('cookie-parser');
@@ -9,6 +11,9 @@ var sassMiddleware      = require('node-sass-middleware')
 var path                = require('path')
 var mongoose            = require('mongoose');
 const busboyBodyParser  = require('busboy-body-parser');
+
+const fdtAdminMenu      = require('./lib/middleware/fdtAdminSetMenu.js');
+const uploadImageS3     = require('./lib/middleware/uploadImageS3.js');
 
 
 
@@ -40,6 +45,8 @@ const njk = expressNunjucks(app, {
 });
 
 njk.env.addFilter('date', dateFilter);
+njk.env.addFilter('imgx', imgxFilter);
+njk.env.addFilter('json_encode', json_encode);
 
 //MONGOOSE
 var mongoDB = process.env.MONGO_URI;
@@ -65,6 +72,10 @@ app.use(busboyBodyParser());
 
 //PUBLIC
 app.use(express.static(path.join(__dirname, 'public')));
+
+//FdTMiddelware
+app.use(fdtAdminMenu.manageActiveMenu);
+app.use(uploadImageS3.uploadImageS3);
 
 
 //ROUTERS

@@ -14,12 +14,12 @@
         </div>
     </div>
 
-    <div class="ui top attached tabular menu">
+    <div class="ui pointing secondary menu">
         <a class="active item" data-tab="datiPrincipali">Dati Articolo</a>
         <a class="item" data-tab="paragrafi">Paragrafi</a>
     </div>
 
-    <div class="ui bottom attached active tab segment" data-tab="datiPrincipali">
+    <div class="ui active tab segment" data-tab="datiPrincipali">
         <form class="ui form" method="post" action="/admin/articoli/edit" enctype="multipart/form-data">
             <input type="hidden" name="_id" value="{{articolo._id}}">
 
@@ -70,6 +70,11 @@
                 <div class="field">
                     <label>Immagine</label>
                     <input type="file" name="immagine" value="{{articolo.immagine}}">
+                    {% if articolo.immagine %}
+                        <div class="ui divider"></div>
+                        <img class="ui image centered" src="{{articolo.immagine | imgx ({w: 500, h: 200})}}">
+                    {% endif %}
+
                 </div>
             </div>
             <div class="field">
@@ -79,8 +84,58 @@
             <div class="ui primary submit small button sticky"><i class="save icon"></i> Salva</div>
         </form>
     </div>
-    <div class="ui bottom attached tab segment" data-tab="paragrafi">
-        Paragrafi
+    <div class="ui tab segment" data-tab="paragrafi">
+        <div class="ui items">
+            {% for paragrafo in articolo.paragrafi %}
+            <div class="item">
+                <div class="image">
+                    {% if paragrafo.immagine %}
+                        <img class="ui image" src="{{paragrafo.immagine | imgx ({w: 500, h: 500})}}">
+                    {% endif %}
+                </div>
+                <div class="content">
+                    {{paragrafo.titolo}}
+                    <div class="meta">
+                        <span>{{paragrafo.testo}}</span>
+                    </div>
+
+                    <div class="extra">
+                        <div class="ui icon small primary button editParagrafo" paragrafo="{{paragrafo | safe}}"><i class="edit icon"></i></div>
+                        <div class="ui icon small button deleteParagrafo" id="deleteParagrafo" paragrafoid="{{paragrafo._id}}"><i class="trash outline icon"></i></div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Paragrafo
+        </div>
+        <form class="ui form paragrafo" id="formParagrafo" method="post" action="/admin/articoli/paragrafi/edit" enctype="multipart/form-data">
+            <input type="hidden" name="articoloId" value="{{articolo._id}}">
+             <input type="hidden" name="_id">
+
+            <div class="two fields">
+                <div class="required field">
+                    <label>Titolo</label>
+                    <input type="text" name="titolo">
+                </div>
+                <div class="field">
+                    <label>Immagine</label>
+                    <input type="file" name="immagine">
+                </div>
+            </div>
+            <div class="field required">
+                <label>Testo</label>
+                <textarea name="testo" rows="5"></textarea>
+            </div>
+            <div class="ui primary submit small button"><i class="save icon"></i> Invia</div>
+        </form>
     </div>
 
 {% endblock %}
@@ -89,19 +144,54 @@
 {% block myScript %}
 <script type="text/javascript">
 
+
         $('.ui.form')
             .form({
                 fields: {
-                    titolo     : 'empty'
+                    titolo     : 'empty',
+                    testo     : 'empty'
                 },
                 inline : true
         });
 
-        $( "#addParagrafo" ).on( "click", function() {
-            $('.ui.menu').find('.item').tab('change tab', 'paragrafi')
+        $(document).ready(function(){
+            $('.ui.menu .item')
+                .tab({
+                    history: true,
+                    historyType : 'hash'
+                });
         });
 
-        $('.menu .item').tab();
+        $( "#addParagrafo" ).on( "click", function() {
+            $('.ui.menu').find('.item').tab('change tab', 'paragrafi');
+
+            $('.ui.modal').modal('show');
+        });
+
+        $( ".editParagrafo" ).on( "click", function() {
+                var paragrafodata = $(this).attr('paragrafo')
+                console.log (paragrafodata);
+
+               //paragrafodata = (JSON.parse(paragrafodata));
+
+               console.log (paragrafodata);
+                // $('#formParagrafo').form('set values', {
+                //     titolo: paragrafodata.titolo.toString()
+                // });
+
+                $('#formParagrafo').form('set value', 'titolo', paragrafodata.titolo)
+                $('.ui.modal').modal('show');
+
+
+        });
+
+        $( ".deleteParagrafo" ).on( "click", function() {
+            if (confirm('Vuoi davvero eliminare il paragrafo?')) {
+                let paragrafoid = $(this).attr('paragrafoid')
+                $(location).attr('href', '/admin/articoli/paragrafi/delete/{{articolo._id}}/' + paragrafoid)
+            }
+
+        });
 
         $('.ui.selection.dropdown').dropdown();
 

@@ -12,7 +12,7 @@ var Schema = mongoose.Schema;
 var paragrafiSchema = new Schema({
     titolo: { type: String, required: true, trim: true },
     testo: { type: String},
-    immagine: { type: Schema.Types.Mixed }
+    immagine: { type: String}
 });
 
 
