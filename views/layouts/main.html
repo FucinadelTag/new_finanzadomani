@@ -27,6 +27,13 @@
             <script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+         <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.auth0.com/w2/auth0-7.6.1.min.js"></script>
+
         {# Include template-specific stylesheets by extending the css block #}
         {% block css %}{% endblock %}
 
@@ -119,7 +126,7 @@
         {# jQuery 1.11.3 is included by default, and required by both Bootstrap
             and the KeystoneJS Content Editor. If you are not targeting IE8,
             you can upgrade to 2.1.4 (also bundled) for better performance. #}
-        <script src="/js/jquery/jquery-2.1.4.min.js"></script>
+
 
 
         {# Add scripts that are globally required by your site here. #}

@@ -1,0 +1,12 @@
+{% extends "layouts/main.html" %}
+
+
+{% block content %}
+
+    <img src="{{user.picture}}">
+
+    {{user.nickname}}
+
+    <a href="/logout">Logout</a>
+
+{% endblock %}
