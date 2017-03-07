@@ -2,7 +2,8 @@ var express             = require('express')
 var expressNunjucks     = require('express-nunjucks');
 var dateFilter          = require('nunjucks-date-filter');
 var imgxFilter          = require('./lib/nunjucks/imgx-filter');
-var json_encode          = require('./lib/nunjucks/json_encode');
+var json_encode         = require('./lib/nunjucks/json_encode');
+var markdownToHtml      = require('./lib/nunjucks/markdownToHtml');
 var session             = require('express-session');
 var flash               = require('express-flash');
 var cookieParser        = require('cookie-parser');
@@ -47,6 +48,7 @@ const njk = expressNunjucks(app, {
 njk.env.addFilter('date', dateFilter);
 njk.env.addFilter('imgx', imgxFilter);
 njk.env.addFilter('json_encode', json_encode);
+njk.env.addFilter('markdownToHtml', markdownToHtml);
 
 //MONGOOSE
 var mongoDB = process.env.MONGO_URI;

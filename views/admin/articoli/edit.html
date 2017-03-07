@@ -65,7 +65,7 @@
             <div class="two fields">
                 <div class="field">
                     <label>Abstract</label>
-                    <textarea name="abstract" rows="5">{{articolo.abstract}}</textarea>
+                    <textarea name="abstract" id="abstractId" rows="5">{{articolo.abstract}}</textarea>
                 </div>
                 <div class="field">
                     <label>Immagine</label>
@@ -79,7 +79,7 @@
             </div>
             <div class="field">
                 <label>Consiglio</label>
-                <textarea name="consiglio" rows="5">{{articolo.consiglio}}</textarea>
+                <textarea name="consiglio" id="consiglioId"  rows="5">{{articolo.consiglio}}</textarea>
             </div>
             <div class="ui primary submit small button sticky"><i class="save icon"></i> Salva</div>
         </form>
@@ -96,7 +96,7 @@
                 <div class="content">
                     {{paragrafo.titolo}} | {{paragrafo.ordine}}
                     <div class="meta">
-                        <span>{{paragrafo.testo}}</span>
+                        <span>{{paragrafo.testo | markdownToHtml | safe}}</span>
                     </div>
 
                     <div class="extra">
@@ -136,7 +136,7 @@
             </div>
             <div class="field required">
                 <label>Testo</label>
-                <textarea name="testo" rows="5"></textarea>
+                <textarea name="testo" id="testo" rows="5"></textarea>
             </div>
             <div class="ui primary submit small button"><i class="save icon"></i> Invia</div>
         </form>
@@ -159,6 +159,14 @@
         });
 
         $(document).ready(function(){
+
+            let simplemdeAbstract = new SimpleMDE({
+                element: $("#abstractId")[0]
+            });
+            let simplemdeConsiglio = new SimpleMDE({
+                element: $("#consiglioId")[0]
+            });
+
             $('.ui.menu .item')
                 .tab({
                     history: true,
@@ -168,15 +176,36 @@
 
         $( "#addParagrafo" ).on( "click", function() {
             $('#formParagrafo').form('reset');
+            let simplemdeTesto = new SimpleMDE({
+                    element: $("#testo")[0],
+                    spellChecker: false,
+                    forceSync: true
+            });
+            simplemdeTesto.clearAutosavedValue();
             $('.ui.menu').find('.item').tab('change tab', 'paragrafi');
-            $('.ui.modal').modal('show');
+            $('.ui.modal').modal({onHide : function() {
+                    simplemdeTesto.toTextArea ();
+                    simplemdeTesto = null;
+                }}).modal('show');
         });
 
         $( ".editParagrafo" ).on( "click", function() {
+                $('#formParagrafo').form('reset');
+
                 var paragrafodata = $(this).data('paragrafo')
                 delete paragrafodata.immagine;
+
+                var simplemdeTesto = new SimpleMDE({
+                    element: $("#testo")[0],
+                    spellChecker: false,
+                    forceSync: true,
+                    initialValue: paragrafodata.testo
+                });
                 $('#formParagrafo').form('set values', paragrafodata);
-                $('.ui.modal').modal('show');
+                $('.ui.modal').modal({onHide : function() {
+                    simplemdeTesto.toTextArea ();
+                    simplemdeTesto = null;
+                }}).modal('show');
 
 
         });
