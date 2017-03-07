@@ -19,7 +19,6 @@ exports.list = function(req, res, next) {
         sort('-dataPubblicazione').
         exec(function (err, articoli) {
             if (err) return console.error(err);
-            console.log(articoli);
 
             res.render('admin/articoli/index', { articoli: articoli, expressFlash: req.flash('success')})
     });
@@ -46,8 +45,6 @@ exports.edit = function(req, res, next) {
     const formData = (req.body);
     const id = (req.body._id);
 
-    console.log (formData);
-
     Articoli.findOneAndUpdate({_id: id}, formData, { new: true, upsert: false })
         .exec(function (err, updated) {
             req.flash('success', 'Articolo Aggiornato con successo');
@@ -72,7 +69,12 @@ exports.vedi = function(req, res, next) {
             exec(function (err, categorie) {
                 if (err) return console.error(err);
                 res.locals.categorie = categorie;
-                res.render('admin/articoli/edit', { articolo: articolo, expressFlash: req.flash('success')})
+
+                //paragrafiSorted = _.sortBy (articolo.paragrafi, ['titolo']);
+
+                //articolo.paragrafi = paragrafiSorted;
+
+                res.render('admin/articoli/edit', { articolo: articolo.toJSON(), expressFlash: req.flash('success')})
         });
 
 
@@ -102,17 +104,29 @@ exports.paragrafiEdit = function(req, res, next) {
 
     const formData = (req.body);
     const articoloId = formData.articoloId;
+    const paragrafoId = (formData._id);
 
+    delete formData._id;
     delete formData.articoloId;
 
     Articoli.findById(articoloId, function (err, articolo) {
 
-        articolo.paragrafi.push(formData);
+        if (paragrafoId != ''){
+            let paragrafo = articolo.paragrafi.id(paragrafoId);
+
+            paragrafo.set (formData);
+        } else {
+            articolo.paragrafi.push(formData);
+        }
+
+        paragrafiSorted = _.sortBy (articolo.paragrafi, ['ordine']);
+
+        articolo.paragrafi = paragrafiSorted;
 
         articolo.save(function (err) {
             if (err) return console.error(err);
             req.flash('success', 'Paragrafo salvato con successo');
-            res.redirect('/admin/articoli/vedi/' + articoloId);
+            res.redirect('/admin/articoli/vedi/' + articoloId + '#/paragrafi');
         });
 
     });

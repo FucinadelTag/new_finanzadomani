@@ -86,7 +86,7 @@
     </div>
     <div class="ui tab segment" data-tab="paragrafi">
         <div class="ui items">
-            {% for paragrafo in articolo.paragrafi %}
+            {% for paragrafo in articolo.paragrafi  %}
             <div class="item">
                 <div class="image">
                     {% if paragrafo.immagine %}
@@ -94,13 +94,13 @@
                     {% endif %}
                 </div>
                 <div class="content">
-                    {{paragrafo.titolo}}
+                    {{paragrafo.titolo}} | {{paragrafo.ordine}}
                     <div class="meta">
                         <span>{{paragrafo.testo}}</span>
                     </div>
 
                     <div class="extra">
-                        <div class="ui icon small primary button editParagrafo" paragrafo="{{paragrafo | safe}}"><i class="edit icon"></i></div>
+                        <div class="ui icon small primary button editParagrafo" data-paragrafo='{{paragrafo | dump}}'><i class="edit icon"></i></div>
                         <div class="ui icon small button deleteParagrafo" id="deleteParagrafo" paragrafoid="{{paragrafo._id}}"><i class="trash outline icon"></i></div>
                     </div>
 
@@ -120,14 +120,18 @@
             <input type="hidden" name="articoloId" value="{{articolo._id}}">
              <input type="hidden" name="_id">
 
-            <div class="two fields">
                 <div class="required field">
                     <label>Titolo</label>
                     <input type="text" name="titolo">
                 </div>
+            <div class="two fields">
                 <div class="field">
                     <label>Immagine</label>
                     <input type="file" name="immagine">
+                </div>
+                <div class="field">
+                    <label>Ordine</label>
+                    <input type="number" name="ordine">
                 </div>
             </div>
             <div class="field required">
@@ -163,23 +167,15 @@
         });
 
         $( "#addParagrafo" ).on( "click", function() {
+            $('#formParagrafo').form('reset');
             $('.ui.menu').find('.item').tab('change tab', 'paragrafi');
-
             $('.ui.modal').modal('show');
         });
 
         $( ".editParagrafo" ).on( "click", function() {
-                var paragrafodata = $(this).attr('paragrafo')
-                console.log (paragrafodata);
-
-               //paragrafodata = (JSON.parse(paragrafodata));
-
-               console.log (paragrafodata);
-                // $('#formParagrafo').form('set values', {
-                //     titolo: paragrafodata.titolo.toString()
-                // });
-
-                $('#formParagrafo').form('set value', 'titolo', paragrafodata.titolo)
+                var paragrafodata = $(this).data('paragrafo')
+                delete paragrafodata.immagine;
+                $('#formParagrafo').form('set values', paragrafodata);
                 $('.ui.modal').modal('show');
 
 

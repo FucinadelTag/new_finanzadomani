@@ -12,7 +12,8 @@ var Schema = mongoose.Schema;
 var paragrafiSchema = new Schema({
     titolo: { type: String, required: true, trim: true },
     testo: { type: String},
-    immagine: { type: String}
+    immagine: { type: String},
+    ordine: { type: Number, required: false, default: 0 },
 });
 
 
