@@ -14,8 +14,8 @@ router.get('/login',
 
 // Perform session logout and redirect to homepage
 router.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
+    req.logout();
+    res.redirect('/');
 });
 
 // Perform the final stage of authentication and redirect to '/user'

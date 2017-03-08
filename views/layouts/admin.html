@@ -39,9 +39,6 @@
             <a href="/admin"><img src="https://dato-images.imgix.net/702/1485530920-finanzadomani-png?auto=format&h=40&fit=crop&crop=entropy."> </a>
 
             <div class="ui vertical pointing menu">
-                <a class="item" href="/admin">
-                    Home {{activeMenu}}
-                </a>
                 <div class="item">
                     <div class="header">Contenuti</div>
 
@@ -51,6 +48,13 @@
                     {% endfor %}
                     </div>
 
+                </div>
+                <div class="item">
+                        <div class="header">Settings</div>
+
+                        <div class="menu">
+                          <a class="item" href="/logout/">Logout</a>
+                        </div>
                 </div>
             </div>
 

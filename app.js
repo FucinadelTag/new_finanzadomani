@@ -31,11 +31,11 @@ var sessionStore = new session.MemoryStore;
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 2628000000 }, //1 MESE
     store: sessionStore,
     saveUninitialized: true,
     resave: 'true',
-    secret: 'secret'
+    secret: process.env.COOKIE_SECRET
 }));
 app.use(flash());
 
@@ -115,6 +115,7 @@ app.use(uploadImageS3.uploadImageS3);
 
 //ROUTERS
 let admin = require('./routes/admin');
+
 app.use('/admin', admin);
 
 let index = require('./routes/index');
