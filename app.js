@@ -31,7 +31,11 @@ var sessionStore = new session.MemoryStore;
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
-    cookie: { maxAge: 2628000000 }, //1 MESE
+    cookie: {
+        maxAge: 30 * 24 * 60 * 60 * 1000, //g*h*m*s*ms
+        httpOnly: false,
+        secure: false
+    },
     store: sessionStore,
     saveUninitialized: true,
     resave: 'true',
@@ -46,12 +50,12 @@ var strategy = new Auth0Strategy({
     domain:       process.env.AUTH0_DOMAIN,
     clientID:     process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    callbackURL:  process.env.AUTH0_CALLBACK_URL || 'http://localhost:3030/callback'
+    callbackURL:  process.env.AUTH0_CALLBACK_URL
   }, function(accessToken, refreshToken, extraParams, profile, done) {
     // accessToken is the token to call Auth0 API (not needed in the most cases)
     // extraParams.id_token has the JSON Web Token
     // profile has all the information from the user
-    console.log (profile);
+    //console.log (profile);
     return done(null, profile);
   });
 

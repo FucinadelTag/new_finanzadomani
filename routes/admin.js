@@ -13,6 +13,8 @@ router.use(ensureLoggedIn);
 
 router.use(function (req, res, next) {
 
+        console.log (req.session)
+
         let arrayRoles = req.user._json.authorization.roles;
 
         if (__.contains(arrayRoles, 'Admin')){
