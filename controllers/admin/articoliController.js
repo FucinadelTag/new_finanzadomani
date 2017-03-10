@@ -60,25 +60,48 @@ exports.vedi = function(req, res, next) {
 
     let id = req.params.articoloId;
 
+    Articoli.
+        findOne().
+        where('_id').equals(id).
+        populate('categoria').
+        exec(function (err, articolo) {
+            if (err) return console.error(err);
+            console.log (articolo.url);
+            PostCategory.
+                find().
+                sort('ordine').
+                exec(function (err, categorieOk) {
+                    if (err) return console.error(err);
+                    res.locals.categorieOk = categorieOk;
 
+                    //paragrafiSorted = _.sortBy (articolo.paragrafi, ['titolo']);
 
-    Articoli.findById(id, function (err, articolo) {
-        PostCategory.
-            find().
-            sort('ordine').
-            exec(function (err, categorie) {
-                if (err) return console.error(err);
-                res.locals.categorie = categorie;
+                    //articolo.paragrafi = paragrafiSorted;
 
-                //paragrafiSorted = _.sortBy (articolo.paragrafi, ['titolo']);
-
-                //articolo.paragrafi = paragrafiSorted;
-
-                res.render('admin/articoli/edit', { articolo: articolo.toJSON(), expressFlash: req.flash('success')})
-        });
-
+                    res.render('admin/articoli/edit', { articolo: articolo, expressFlash: req.flash('success')})
+            });
 
     });
+
+
+
+    // Articoli.findById(id, function (err, articolo) {
+    //     PostCategory.
+    //         find().
+    //         sort('ordine').
+    //         exec(function (err, categorie) {
+    //             if (err) return console.error(err);
+    //             res.locals.categorie = categorie;
+
+    //             //paragrafiSorted = _.sortBy (articolo.paragrafi, ['titolo']);
+
+    //             //articolo.paragrafi = paragrafiSorted;
+
+    //             res.render('admin/articoli/edit', { articolo: articolo.toJSON(), expressFlash: req.flash('success')})
+    //     });
+
+
+    // });
     //res.render('admin/categories/index', { title: 'Hey', message: 'Hello ADMIN there!' })
 };
 

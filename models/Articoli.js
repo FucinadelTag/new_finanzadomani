@@ -14,6 +14,7 @@ var paragrafiSchema = new Schema({
     testo: { type: String},
     immagine: { type: String},
     ordine: { type: Number, required: false, default: 0 },
+    layout: {type: String, default: 'img_sinistra'}
 });
 
 
@@ -24,8 +25,12 @@ var articoliSchema = new Schema({
     immagine: { type: String},
     abstract: { type: String},
     consiglio: { type: String},
-    categoria: { type: String},
+    categoria: { type: String, ref: 'PostCategory' },
     paragrafi: [paragrafiSchema]
+});
+
+articoliSchema.virtual('url').get(function () {
+  return '/articoli/' + this.categoria.slug + '/' + this.slug;
 });
 
 

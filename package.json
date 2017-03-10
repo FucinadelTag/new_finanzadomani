@@ -1,13 +1,12 @@
 {
-  "name": "finanza_domani_cms",
-  "mod-project-name": "finanza_domani_cms",
+  "name": "finanza_domani",
+  "mod-project-name": "finanza_domani",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "keywords": [],
-  "author": "FdT",
-  "license": "ISC",
-  "devDependencies": {},
+  "engines": {
+    "node": "6.6.0"
+  },
   "dependencies": {
     "aws-sdk": "^2.22.0",
     "body-parser": "^1.17.0",
@@ -30,8 +29,10 @@
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
     "path": "^0.12.7",
-    "semantic-ui": "^2.2.9",
     "slug": "^0.9.1",
     "underscore": "^1.8.3"
+  },
+  "scripts": {
+    "start": "node app.js"
   }
 }

@@ -12,6 +12,9 @@
         <div class="item">
            <a href="#" id="addParagrafo"><i class="add square icon"></i> Paragrafo</a>
         </div>
+        <div class="item">
+           <a href="{{articolo.url}}" target="_blank" id="idPreview"><i class="unhide icon"></i> Vedi</a>
+        </div>
     </div>
 
     <div class="ui pointing secondary menu">
@@ -50,14 +53,13 @@
                 <div class="field">
                     <label>Categoria</label>
                     <div class="ui selection dropdown">
-                      <input type="hidden" name="categoria" value="{{articolo.categoria}}">
+                      <input type="hidden" name="categoria" value="{{articolo.categoria._id}}">
                       <i class="dropdown icon"></i>
-                      <div class="default text">Stato</div>
+                      <div class="default text">Categoria</div>
                       <div class="menu">
-                            {% for categoria in categorie %}
-                                <div class="item" data-value="{{categoria._id}}">{{categoria.name}}</div>
+                            {% for categoriaList in categorieOk %}
+                                <div class="item" data-value="{{categoriaList._id}}">{{categoriaList.name}}</div>
                             {% endfor %}
-                          <div class="item" data-value="pubblicato">Pubblicato</div>
                       </div>
                   </div>
                 </div>
@@ -94,7 +96,7 @@
                     {% endif %}
                 </div>
                 <div class="content">
-                    {{paragrafo.titolo}} | {{paragrafo.ordine}}
+                    {{paragrafo.titolo}} | {{paragrafo.ordine}} | {{paragrafo.layout}}
                     <div class="meta">
                         <span>{{paragrafo.testo | markdownToHtml | safe}}</span>
                     </div>
@@ -134,6 +136,20 @@
                     <label>Ordine</label>
                     <input type="number" name="ordine">
                 </div>
+                <div class="field">
+                    <label>Categoria</label>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="layout" value="{{articolo.layout}}">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Layout</div>
+                        <div class="menu">
+                            <div class="item" data-value="img_sinistra">Immagine a sinistra</div>
+                            <div class="item" data-value="img_destra">Immagine a destra</div>
+                            <div class="item" data-value="img_sopra">Immagine a sopra</div>
+                            <div class="item" data-value="img_sotto">Immagine sotto</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="field required">
                 <label>Testo</label>
@@ -162,10 +178,12 @@
         $(document).ready(function(){
 
             let simplemdeAbstract = new SimpleMDE({
-                element: $("#abstractId")[0]
+                element: $("#abstractId")[0],
+                spellChecker: false,
             });
             let simplemdeConsiglio = new SimpleMDE({
-                element: $("#consiglioId")[0]
+                element: $("#consiglioId")[0],
+                spellChecker: false,
             });
 
             $('.ui.menu .item')

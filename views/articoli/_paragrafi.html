@@ -1,0 +1,103 @@
+{% macro img_sinistra(paragrafo) %}
+
+
+<div class="row paragrafo">
+
+    <div class="columns clearfix">
+            <h2>
+                {{paragrafo.titolo}}
+            </h2>
+            <img src="{{paragrafo.immagine | imgx ({w: 250, h: 250})}}" class="float-left" />
+
+                <p>{{paragrafo.testo | markdownToHtml | safe}}</p>
+
+    </div>
+
+</div>
+
+{% endmacro %}
+
+
+{% macro img_destra(paragrafo) %}
+
+
+<div class="row paragrafo">
+
+    <div class="columns clearfix">
+            <h2>
+                {{paragrafo.titolo}}
+            </h2>
+            <img src="{{paragrafo.immagine | imgx ({w: 250, h: 250})}}" class="float-right" />
+
+                <p>{{paragrafo.testo | markdownToHtml | safe}}</p>
+
+    </div>
+
+</div>
+
+{% endmacro %}
+
+{% macro img_sopra(paragrafo) %}
+
+
+<div class="row paragrafo">
+    <div class="columns">
+        <div class="row">
+            <div class="shrink columns">
+                <h2 class="subheader">
+                    {{paragrafo.titolo}}
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="shrink columns">
+                {% if paragrafo.immagine %}
+                    <img src="{{paragrafo.immagine | imgx ({w: 960, h: 400})}}" />
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="shrink columns">
+                <p>{{paragrafo.testo | markdownToHtml | safe}}</p>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endmacro %}
+
+
+{% macro img_sotto(paragrafo) %}
+
+
+<div class="row paragrafo">
+    <div class="columns">
+        <div class="row">
+            <div class="shrink columns">
+                <h2 class="subheader">
+                    {{paragrafo.titolo}}
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="shrink columns">
+                <p>{{paragrafo.testo | markdownToHtml | safe}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="shrink columns">
+                {% if paragrafo.immagine %}
+                    <img src="{{paragrafo.immagine | imgx ({w: 960, h: 400})}}" />
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endmacro %}

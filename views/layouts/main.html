@@ -13,6 +13,9 @@
             <meta name="description" content="Il sito che ti guida nei tuoi investimenti in borsa">
         {% endblock %}
 
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
         <link rel="alternate" type="application/rss+xml" href="https://www.finanzadomani.it/feed/post.xml" title="Your title">
@@ -59,13 +62,12 @@
                 <li><a href="/"><img src="https://dato-images.imgix.net/702/1485530920-finanzadomani-png?auto=format&h=40&fit=crop&crop=entropy."> </a></li>
             </ul>
         </div>
-        <!-- <div class="top-bar-right">
+        <div class="top-bar-right">
             <ul class="menu">
-                <li><a href="#">Chi siamo</a></li>
-                <li><a href="#">Abbonamenti</a></li>
-                <li><a href="#">Account</a></li>
+                <li><a href="#">Portafogli</a></li>
+                <li><a href="#">Certificate</a></li>
             </ul>
-        </div> -->
+        </div>
     </div>
 
     <div class="title-bar show-for-small-only" data-responsive-toggle="menuPrincipale" data-hide-for="medium">
@@ -73,8 +75,16 @@
         <div class="title-bar-title">Menu</div>
     </div>
 
-    <ul class="menu align-center principale vertical medium-horizontal" id="menuPrincipale">
-
+    <ul class="menu align-left principale vertical medium-horizontal" id="menuPrincipale">
+            <li class="{{ class }}">
+                <a href="/articoli/pillole">Pillole</a>
+            </li>
+            <li class="{{ class }}">
+                <a href="/articoli/notiziona">Notizie</a>
+            </li>
+            <li class="{{ class }}">
+                <a href="/articoli/analisi-tecnica">Analisi tecnica</a>
+            </li>
     </ul>
 
     <div class="spazio_bianco"></div>
