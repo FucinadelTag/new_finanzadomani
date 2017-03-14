@@ -1,0 +1,16 @@
+<div class="row paragrafo">
+
+    <div class="columns">
+        <div class="small-12 columns">
+            <h2 class="subheader">
+                {{paragrafo.titolo}}
+            </h2>
+            <img src="{{paragrafo.immagine | imgx ({w: 250, h: 250})}}" style="float: left;" />
+
+                <p>{{paragrafo.testo | markdownToHtml | safe}}</p>
+
+
+        </div>
+    </div>
+
+</div>

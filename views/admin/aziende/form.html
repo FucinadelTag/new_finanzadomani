@@ -1,0 +1,50 @@
+<form class="ui form" method="post" action="/admin/aziende/edit" enctype="multipart/form-data">
+    <input type="hidden" name="_id" value="{{azienda._id}}">
+
+    <div class="three fields">
+        <div class="required field">
+            <label>Titolo</label>
+            <input type="text" name="titolo" value="{{azienda.titolo}}">
+        </div>
+        <div class="required field">
+            <label>Codice</label>
+            <input type="text" name="codice" value="{{azienda.codice}}">
+        </div>
+         <div class="required field">
+            <label>ISIN</label>
+            <input type="text" name="isin" value="{{azienda.isin}}">
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label>Immagine</label>
+            <input type="file" name="immagine" value="{{azienda.immagine}}">
+            {% if azienda.immagine %}
+                <div class="ui divider"></div>
+                <img class="ui image centered" src="{{azienda.immagine | imgx ({w: 500, h: 200})}}">
+            {% endif %}
+
+        </div>
+        <div class="required field">
+            <label>Categoria</label>
+            <input type="text" name="categoria" value="{{azienda.categoria}}">
+        </div>
+    </div>
+    <div class="ui primary submit small button"><i class="save icon"></i> Invia</div>
+</form>
+
+
+<script type="text/javascript">
+
+        $('.ui.form')
+            .form({
+                fields: {
+                    titolo     : 'empty',
+                    codice   : 'empty',
+                    isin   : 'empty',
+                    categoria: 'empty'
+                },
+                inline : true
+        });
+
+</script>

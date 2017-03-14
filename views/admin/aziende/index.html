@@ -1,0 +1,59 @@
+{% extends "../../layouts/admin.html" %}
+
+
+{% block content %}
+
+
+    <div class="ui small menu">
+        <div class="item">
+            <a href="#" id="addAzienda" title="Aggiungi Azienda"><i class="add square icon"></i> Aggiungi</a>
+        </div>
+    </div>
+
+    <table class="ui selectable celled table">
+        <thead>
+            <tr>
+                <th>Titolo</th>
+                <th>Codice</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for azienda in aziende %}
+                <tr>
+                    <td>{{azienda.titolo}}</td>
+                    <td>{{azienda.codice}}</td>
+                    <td><div class="tiny ui icon button vedi" documentid="{{azienda._id}}"><i class="edit icon"></i></div></td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Azienda
+        </div>
+        {% include "./form.html" %}
+    </div>
+
+{% endblock %}
+
+{% block myScript %}
+<script type="text/javascript">
+
+        $( "#addAzienda" ).on( "click", function() {
+            $('.ui.modal').modal('show');
+        });
+
+        $('.vedi').click(function() {
+            //$varName = $(this).attr('documentid');
+            console.log($(this).attr('documentid'));
+
+            $(location).attr('href', '/admin/aziende/vedi/' + $(this).attr('documentid'))
+        });
+
+</script>
+{% endblock %}

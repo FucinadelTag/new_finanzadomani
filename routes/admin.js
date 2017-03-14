@@ -8,6 +8,7 @@ var index_controller = require('../controllers/admin/indexController');
 
 var categorie_controller = require('../controllers/admin/categoriesController');
 var articoli_controller = require('../controllers/admin/articoliController');
+var aziende_controller = require('../controllers/admin/aziendeController');
 
 router.use(ensureLoggedIn);
 
@@ -27,6 +28,12 @@ router.use(function (req, res, next) {
 })
 
 router.get('/', index_controller.index);
+
+
+//AZIENDE
+router.get('/aziende', aziende_controller.list);
+router.post('/aziende/edit', aziende_controller.edit);
+router.get('/aziende/vedi/:aziendaId', aziende_controller.vedi);
 
 //CATEGORIE
 router.get('/categorie', categorie_controller.list);

@@ -136,5 +136,5 @@ app.use('/user', user);
 
 
 app.listen(process.env.PORT || 3030, function () {
-  console.log('Example app listening on port 8181!')
+  console.log('Example app listening on port 3030!')
 })
