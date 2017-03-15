@@ -1,0 +1,28 @@
+{% macro articolo_lista(articolo) %}
+
+
+<div class="column">
+    <article>
+    <a href="{{articolo.url}}">
+        <div class="row">
+            <div class="columns">
+                <img src="{{articolo.immagine | imgx ({w: 600, h: 300})}}" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <h2>
+                    {{articolo.titolo}}<br class="show-for-large-up">
+                </h2>
+                <span class="titolo_rubrica_piccolo">{{articolo.categoria.name}}</span> <small>{{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
+
+                {{articolo.abstract| markdownToHtml | safe| truncate(200)}}
+                <br><i>Leggi tutto</i>
+
+            </div>
+        </div>
+    </a>
+    </article>
+</div>
+
+{% endmacro %}

@@ -1,0 +1,58 @@
+{% extends "layouts/main.html" %}
+
+{% import "../articoli/_articolo_lista.html" as articolo_lista %}
+
+
+{% block title %}
+    <title>{{ azienda.titolo }} | Finanza Domani</title>
+{% endblock %}
+
+{% block description %}
+    <meta name="description" content=" {{azienda.titolo | markdownToHtml | striptags | truncate(155)}}">
+{% endblock %}
+
+{% block breadcrumbs %}
+    <nav aria-label="You are here:" role="navigation">
+        <ul class="breadcrumbs">
+            <li><a href="/">Home</a></li>
+            <li><a href="/aziende/{{azienda.codice}}">{{azienda.codice}}</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
+
+{% block content %}
+
+        <header>
+            <h1>{{ azienda.titolo }}</h1>
+        </header>
+
+        <div class="row">
+            <div class="shrink columns">
+                {% if azienda.immagine %}
+                    <img src="{{azienda.immagine | imgx ({w: 400, fit: clip})}}" />
+                {% endif %}
+            </div>
+            <div class="columns">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis metus neque. Integer ornare gravida felis laoreet auctor. Sed ultricies tincidunt nunc, eu commodo erat consectetur sed. Aenean rutrum eros urna, sit amet efficitur nibh elementum quis. Pellentesque vestibulum vel urna in dignissim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus vel odio posuere, fringilla odio ut, accumsan nunc. Duis posuere ornare metus, quis efficitur mi porttitor non.
+                </p>
+            </div>
+        </div>
+
+        <hr>
+
+        <h2>Cosa abbiamo scritto su {{ azienda.titolo }}</h2>
+
+        <div class="row small-up-1 medium-up-2">
+            {% for articolo in articoli %}
+
+                {{ articolo_lista.articolo_lista(articolo) }}
+
+
+            {% endfor %}
+
+        </div>
+
+
+{% endblock %}

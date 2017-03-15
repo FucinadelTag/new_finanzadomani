@@ -29,7 +29,7 @@ var articoliSchema = new Schema({
     consiglio: { type: String},
     categoria: { type: String, ref: 'PostCategory' },
     paragrafi: [paragrafiSchema],
-    aziende: [{ type: String, ref: 'Aziende' }]
+    aziende: [{ type: Schema.Types.ObjectId, ref: 'Aziende' }]
 });
 
 articoliSchema.virtual('url').get(function () {

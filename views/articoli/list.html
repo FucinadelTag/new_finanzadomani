@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% import "./_paragrafi.html" as paragrafi %}
+{% import "./_articolo_lista.html" as articolo_lista %}
 
 
 {% block title %}
@@ -14,6 +14,7 @@
     <nav aria-label="You are here:" role="navigation">
         <ul class="breadcrumbs">
             <li><a href="/">Home</a></li>
+            <li><a href="/articoli/{{categoria.slug}}">{{categoria.name}}</a></li>
         </ul>
     </nav>
 {% endblock %}
@@ -24,29 +25,7 @@
     <div class="row small-up-1 medium-up-2">
         {% for articolo in articoli %}
 
-                <div class="column">
-                    <article>
-                    <a href="{{articolo.url}}">
-                        <div class="row">
-                            <div class="columns">
-                                <img src="{{articolo.immagine | imgx ({w: 500, h: 200})}}" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="small-12 columns">
-                                <h2>
-                                    {{articolo.titolo}}<br class="show-for-large-up">
-                                </h2>
-                                <span class="titolo_rubrica_piccolo">{{articolo.categoria.name}}</span> <small>{{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
-
-                                {{articolo.abstract| markdownToHtml | safe| truncate(200)}}
-                                <br><i>Leggi tutto</i>
-
-                            </div>
-                        </div>
-                    </a>
-                    </article>
-                </div>
+            {{ articolo_lista.articolo_lista(articolo) }}
 
 
         {% endfor %}

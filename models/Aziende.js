@@ -11,10 +11,11 @@ var Schema = mongoose.Schema;
 
 var aziendeSchema = new Schema({
     titolo: { type: String, required: true },
-    codice: { type: String, required: true },
+    codice: { type: String, required: true, unique: true },
     isin: { type: String, required: true },
     immagine: { type: String, required: false},
-    categoria: { type: String, required: true}
+    categoria: { type: String, required: false},
+    articoli: [{ type: Schema.Types.ObjectId, ref: 'Articoli' }]
 });
 
 aziendeSchema.plugin(timestamps);

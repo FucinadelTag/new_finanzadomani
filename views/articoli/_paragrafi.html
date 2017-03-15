@@ -7,7 +7,7 @@
             <h2>
                 {{paragrafo.titolo}}
             </h2>
-            <img src="{{paragrafo.immagine | imgx ({w: 250, h: 250})}}" class="float-left" />
+            <img src="{{paragrafo.immagine | imgx ({w: 300, h: 300})}}" class="float-left" />
 
                 <p>{{paragrafo.testo | markdownToHtml | safe}}</p>
 
@@ -27,7 +27,7 @@
             <h2>
                 {{paragrafo.titolo}}
             </h2>
-            <img src="{{paragrafo.immagine | imgx ({w: 250, h: 250})}}" class="float-right" />
+            <img src="{{paragrafo.immagine | imgx ({w: 300, h: 300})}}" class="float-right" />
 
                 <p>{{paragrafo.testo | markdownToHtml | safe}}</p>
 
@@ -52,7 +52,7 @@
         <div class="row">
             <div class="shrink columns">
                 {% if paragrafo.immagine %}
-                    <img src="{{paragrafo.immagine | imgx ({w: 960, h: 400})}}" />
+                    <img src="{{paragrafo.immagine | imgx ({w: 1300, h: 400})}}" />
                 {% endif %}
             </div>
         </div>
@@ -90,7 +90,7 @@
         <div class="row">
             <div class="shrink columns">
                 {% if paragrafo.immagine %}
-                    <img src="{{paragrafo.immagine | imgx ({w: 960, h: 400})}}" />
+                    <img src="{{paragrafo.immagine | imgx ({w: 1300, h: 400})}}" />
                 {% endif %}
             </div>
         </div>

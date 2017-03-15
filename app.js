@@ -126,6 +126,9 @@ let admin = require('./routes/admin');
 
 app.use('/admin', admin);
 
+let aziende = require('./routes/aziende');
+app.use('/aziende', aziende);
+
 let articoli = require('./routes/articoli');
 app.use('/articoli', articoli);
 

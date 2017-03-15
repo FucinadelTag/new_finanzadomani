@@ -15,7 +15,8 @@
     <nav aria-label="You are here:" role="navigation">
         <ul class="breadcrumbs">
             <li><a href="/">Home</a></li>
-            <li><a href="/{{articolo.categoria.slug}}">{{articolo.categoria.name}}</a></li>
+            <li><a href="/articoli/{{articolo.categoria.slug}}">{{articolo.categoria.name}}</a></li>
+            <li><a href="/articoli/{{articolo.categoria.slug}}/{{articolo.slug}}">{{articolo.titolo}}</a></li>
         </ul>
     </nav>
 {% endblock %}
@@ -26,13 +27,17 @@
     <article>
         <header>
             <h1>{{ articolo.titolo }}</h1>
-            <small>La redazione - {{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
+
+
+                    <small> A cura della Redazione - {{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
+
+
         </header>
 
         <div class="row">
             <div class="shrink columns">
                 {% if articolo.immagine %}
-                    <img src="{{articolo.immagine | imgx ({w: 960, h: 400})}}" />
+                    <img src="{{articolo.immagine | imgx ({w: 1300, h: 400})}}" />
                 {% endif %}
             </div>
         </div>
@@ -47,7 +52,7 @@
         <div class="row">
             <div class="columns callout warning">
 
-                <h2>Il Nostro Consiglio</h2>
+                <h2>Come Investire</h2>
                 <hr>
                 <span>{{articolo.consiglio|markdownToHtml|safe}}</span>
             </div>
@@ -76,6 +81,22 @@
 
 
     </article>
+    <hr>
+    <div class="row align-justify align-middle">
+        <div class="columns small-9">
+            {% for azienda in articolo.aziende  %}
+                <a class="hollow button secondary small" href="/aziende/{{azienda.codice}}">{{azienda.titolo}}</a>
+            {% endfor %}
+
+        </div>
+
+        <div class="columns small-3">
+
+            <small> A cura della Redazione - {{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
+
+        </div>
+
+    </div>
 
     <hr>
 

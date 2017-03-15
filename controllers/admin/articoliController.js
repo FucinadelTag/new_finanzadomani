@@ -97,7 +97,6 @@ exports.vedi = function(req, res, next) {
         findOne().
         where('_id').equals(id).
         populate('categoria').
-        populate('_id').
         exec(function (err, articolo) {
             if (err) return console.error(err);
             console.log (articolo.url);

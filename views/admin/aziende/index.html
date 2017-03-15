@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <table class="ui selectable celled table">
+    <table class="ui selectable celled table" id="example">
         <thead>
             <tr>
                 <th>Titolo</th>
@@ -46,6 +46,10 @@
 
         $( "#addAzienda" ).on( "click", function() {
             $('.ui.modal').modal('show');
+        });
+
+        $(document).ready(function() {
+            $('#example').DataTable()
         });
 
         $('.vedi').click(function() {
