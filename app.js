@@ -7,6 +7,7 @@ var markdownToHtml      = require('./lib/nunjucks/markdownToHtml');
 var limitTo             = require('./lib/nunjucks/limitTo');
 var arrayToString       = require('./lib/nunjucks/arrayToString');
 var session             = require('express-session');
+var MongoSessionStore          = require('connect-mongo')(session);
 var flash               = require('express-flash');
 var cookieParser        = require('cookie-parser');
 var bodyParser          = require('body-parser');
@@ -23,9 +24,15 @@ var Auth0Strategy = require('passport-auth0');
 require('dotenv').config()
 
 
+//MONGOOSE
+var mongoDB = process.env.MONGO_URI;
+mongoose.connect(mongoDB);
+var db = mongoose.connection
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 //APP
 var app = express();
-var sessionStore = new session.MemoryStore;
+var sessionStore = new MongoSessionStore({ mongooseConnection: db });
 
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -88,11 +95,7 @@ njk.env.addFilter('markdownToHtml', markdownToHtml);
 njk.env.addFilter('limitTo', limitTo);
 njk.env.addFilter('arrayToString', arrayToString);
 
-//MONGOOSE
-var mongoDB = process.env.MONGO_URI;
-mongoose.connect(mongoDB);
-var db = mongoose.connection
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 
 
