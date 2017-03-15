@@ -10,16 +10,17 @@
         </div>
     </div>
 
-    <table class="ui selectable celled table">
+    <table class="ui selectable celled table" id="example">
         <thead>
             <tr>
                 <th>Titolo</th>
                 <th>Slug</th>
                 <th>Stato</th>
+                <th>Data</th>
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <!-- <tbody>
             {% for articolo in articoli %}
                 <tr>
                     <td>{{articolo.titolo}}</td>
@@ -29,7 +30,7 @@
                 </tr>
 
             {% endfor %}
-        </tbody>
+        </tbody> -->
     </table>
 
 
@@ -52,6 +53,39 @@
 {% block myScript %}
 <script type="text/javascript">
 
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "/admin/articoli/table",
+                "order": [[ 3, "desc" ]],
+                "columns": [
+                    { "data": "titolo" },
+                    { "data": "slug" },
+                    { "data": "stato" },
+                    { "data": "dataPubblicazione", orderDataType:  'datetime-moment'},
+                    {
+                        "data": null,
+                        "sorable": false,
+                        "render": function (data, type, full)
+                                    {
+                                        return '<a href="/admin/articoli/vedi/'+ data._id +' " class="tiny ui icon button vedi"><i class="edit icon"></i></a>';
+                                    }
+                    }
+
+                ]
+            });
+
+
+            $('.vedi').click(function() {
+                //$varName = $(this).attr('documentid');
+                console.log($(this).attr('documentid'));
+
+                $(location).attr('href', '/admin/articoli/vedi/' + $(this).attr('documentid'))
+            });
+
+        });
+
         $('.ui.form')
             .form({
                 fields: {
@@ -64,12 +98,7 @@
             $('.ui.modal').modal('show');
         });
 
-        $('.vedi').click(function() {
-            //$varName = $(this).attr('documentid');
-            console.log($(this).attr('documentid'));
 
-            $(location).attr('href', '/admin/articoli/vedi/' + $(this).attr('documentid'))
-        });
 
 </script>
 {% endblock %}

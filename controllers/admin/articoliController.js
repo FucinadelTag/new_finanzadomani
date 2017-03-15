@@ -26,6 +26,33 @@ exports.list = function(req, res, next) {
 
 };
 
+exports.table = function(req, res, next) {
+
+    console.log(req.query);
+
+    let order = req.query.order[0];
+    let orderColumn = req.query.columns[order.column].data;
+    let orderDir = order.dir;
+
+    const sortObject = {};
+    sortObject[orderColumn] = orderDir
+
+    Articoli.dataTables({
+        limit: req.query.length,
+        skip: req.query.start,
+        search: {
+          value: req.query.search.value,
+          fields: ['titolo', 'stato', 'abstract', 'consiglio']
+        },
+        sort: sortObject
+    }).then(function (table) {
+        //console.log (table);
+        table.recordsFiltered = table.recordsTotal
+        res.json(table); // table.total, table.data
+    })
+
+};
+
 exports.aggiungi = function(req, res, next) {
 
     const formData = (req.body);

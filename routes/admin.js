@@ -42,6 +42,7 @@ router.get('/categorie/vedi/:categoriaId', categorie_controller.vedi);
 
 //ARTICOLI
 router.get('/articoli', articoli_controller.list);
+router.get('/articoli/table', articoli_controller.table);
 router.post('/articoli/aggiungi', articoli_controller.aggiungi);
 router.post('/articoli/edit', articoli_controller.edit);
 router.get('/articoli/vedi/:articoloId', articoli_controller.vedi);

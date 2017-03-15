@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
+var mongoose                = require('mongoose');
 var timestamps              = require('mongoose-timestamp');
 var slugHero                = require('mongoose-slug-hero');
+var dataTables              = require('mongoose-datatables')
 
 var Schema = mongoose.Schema;
 
@@ -34,6 +35,9 @@ articoliSchema.virtual('url').get(function () {
 });
 
 
+articoliSchema.plugin(dataTables, {
+    totalKey: 'recordsTotal'
+});
 articoliSchema.plugin(timestamps);
 articoliSchema.plugin(slugHero, {doc: 'Articoli', field: 'titolo'})
 
