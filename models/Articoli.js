@@ -1,7 +1,8 @@
 var mongoose                = require('mongoose');
 var timestamps              = require('mongoose-timestamp');
 var slugHero                = require('mongoose-slug-hero');
-var dataTables              = require('mongoose-datatables')
+var dataTables              = require('mongoose-datatables');
+
 
 var Schema = mongoose.Schema;
 
@@ -27,7 +28,8 @@ var articoliSchema = new Schema({
     abstract: { type: String},
     consiglio: { type: String},
     categoria: { type: String, ref: 'PostCategory' },
-    paragrafi: [paragrafiSchema]
+    paragrafi: [paragrafiSchema],
+    aziende: [{ type: String, ref: 'Aziende' }]
 });
 
 articoliSchema.virtual('url').get(function () {

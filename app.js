@@ -5,6 +5,7 @@ var imgxFilter          = require('./lib/nunjucks/imgx-filter');
 var json_encode         = require('./lib/nunjucks/json_encode');
 var markdownToHtml      = require('./lib/nunjucks/markdownToHtml');
 var limitTo             = require('./lib/nunjucks/limitTo');
+var arrayToString       = require('./lib/nunjucks/arrayToString');
 var session             = require('express-session');
 var flash               = require('express-flash');
 var cookieParser        = require('cookie-parser');
@@ -88,6 +89,7 @@ njk.env.addFilter('imgx', imgxFilter);
 njk.env.addFilter('json_encode', json_encode);
 njk.env.addFilter('markdownToHtml', markdownToHtml);
 njk.env.addFilter('limitTo', limitTo);
+njk.env.addFilter('arrayToString', arrayToString);
 
 //MONGOOSE
 var mongoDB = process.env.MONGO_URI;

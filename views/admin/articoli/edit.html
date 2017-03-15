@@ -45,7 +45,7 @@
                   </div>
                 </div>
             </div>
-            <div class="two fields">
+            <div class="three fields">
                 <div class="field">
                     <label>Data Pubblicazione</label>
                     <input type="date" name="dataPubblicazione" value="{{articolo.dataPubblicazione | date("YYYY-MM-DD")}}">
@@ -62,6 +62,19 @@
                             {% endfor %}
                       </div>
                   </div>
+                </div>
+                <div class="field">
+                    <label>Aziende</label>
+                        <div class="ui fluid multiple search selection dropdown">
+                            <input type="hidden" name="aziende" value="{{articolo.aziende | arrayToString(',')}}">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Associa una azienda</div>
+                                <div class="menu">
+                                    {% for aziendaList in aziendeOk %}
+                                        <div class="item" data-value="{{aziendaList._id}}" data-text="{{aziendaList.titolo}}">{{aziendaList.titolo}}</div>
+                                    {% endfor %}
+                                </div>
+                        </div>
                 </div>
             </div>
             <div class="two fields">

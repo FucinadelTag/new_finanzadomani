@@ -1,7 +1,9 @@
 var Articoli        = require('../../models/Articoli');
 var PostCategory    = require('../../models/PostCategory');
+var Aziende         = require('../../models/Aziende');
 var ImgixClient     = require('imgix-core-js');
 var AWS             = require ('aws-sdk');
+var _               = require('lodash');
 
 AWS.config.loadFromPath('./config.json');
 var s3 = new AWS.S3({
@@ -72,6 +74,10 @@ exports.edit = function(req, res, next) {
     const formData = (req.body);
     const id = (req.body._id);
 
+    formData.aziende = _.split (formData.aziende, ',');
+
+    console.log (formData);
+
     Articoli.findOneAndUpdate({_id: id}, formData, { new: true, upsert: false })
         .exec(function (err, updated) {
             req.flash('success', 'Articolo Aggiornato con successo');
@@ -91,6 +97,7 @@ exports.vedi = function(req, res, next) {
         findOne().
         where('_id').equals(id).
         populate('categoria').
+        populate('_id').
         exec(function (err, articolo) {
             if (err) return console.error(err);
             console.log (articolo.url);
@@ -100,12 +107,21 @@ exports.vedi = function(req, res, next) {
                 exec(function (err, categorieOk) {
                     if (err) return console.error(err);
                     res.locals.categorieOk = categorieOk;
+                    Aziende.
+                        find().
+                        sort('titolo').
+                        exec(function (err, aziendeOk) {
+                            if (err) return console.error(err);
+                            res.locals.aziendeOk = aziendeOk;
+
+                            res.render('admin/articoli/edit', { articolo: articolo, expressFlash: req.flash('success')})
+                    });
 
                     //paragrafiSorted = _.sortBy (articolo.paragrafi, ['titolo']);
 
                     //articolo.paragrafi = paragrafiSorted;
 
-                    res.render('admin/articoli/edit', { articolo: articolo, expressFlash: req.flash('success')})
+                    //res.render('admin/articoli/edit', { articolo: articolo, expressFlash: req.flash('success')})
             });
 
     });
