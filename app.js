@@ -18,9 +18,6 @@ const busboyBodyParser  = require('busboy-body-parser');
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 
-const fdtAdminMenu      = require('./lib/middleware/fdtAdminSetMenu.js');
-const uploadImageS3     = require('./lib/middleware/uploadImageS3.js');
-
 
 //READ ENV CONSTANT
 require('dotenv').config()
@@ -116,9 +113,7 @@ app.use(busboyBodyParser());
 //PUBLIC
 app.use(express.static(path.join(__dirname, 'public')));
 
-//FdTMiddelware
-app.use(fdtAdminMenu.manageActiveMenu);
-app.use(uploadImageS3.uploadImageS3);
+
 
 
 //ROUTERS

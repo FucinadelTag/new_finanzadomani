@@ -10,22 +10,35 @@ var categorie_controller = require('../controllers/admin/categoriesController');
 var articoli_controller = require('../controllers/admin/articoliController');
 var aziende_controller = require('../controllers/admin/aziendeController');
 
+const fdtAdminMenu      = require('../lib/middleware/fdtAdminSetMenu.js');
+const uploadImageS3     = require('../lib/middleware/uploadImageS3.js');
+
 router.use(ensureLoggedIn);
 
 router.use(function (req, res, next) {
 
         console.log (req.session)
 
-        let arrayRoles = req.user._json.authorization.roles;
+        let arrayGroups = req.user._json.authorization.groups;
 
-        if (__.contains(arrayRoles, 'Admin')){
-            console.log (req.user._json.authorization);
+        console.log (req.user._json.authorization);
+
+        if (__.contains(arrayGroups, 'Staff')){
+
             next()
         } else {
              res.status(403).send('Non sei autorizzato ad accedere a questa zona del sito')
         }
 
 })
+
+//FdTMiddelware
+router.use(fdtAdminMenu.manageActiveMenu);
+router.use(uploadImageS3.uploadImageS3);
+
+
+
+
 
 router.get('/', index_controller.index);
 
