@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
-var __ = require('underscore');
+
 
 
 var index_controller = require('../controllers/admin/indexController');
@@ -17,14 +17,8 @@ router.use(ensureLoggedIn);
 
 router.use(function (req, res, next) {
 
-        console.log (req.session)
 
-        let arrayGroups = req.user._json.authorization.groups;
-
-        console.log (req.user._json.authorization);
-
-        if (__.contains(arrayGroups, 'Staff')){
-
+        if (req.user.inGroup('Staff')){
             next()
         } else {
              res.status(403).send('Non sei autorizzato ad accedere a questa zona del sito')

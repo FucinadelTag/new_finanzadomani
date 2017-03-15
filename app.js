@@ -7,7 +7,8 @@ var markdownToHtml      = require('./lib/nunjucks/markdownToHtml');
 var limitTo             = require('./lib/nunjucks/limitTo');
 var arrayToString       = require('./lib/nunjucks/arrayToString');
 var session             = require('express-session');
-var MongoSessionStore          = require('connect-mongo')(session);
+var userObject          = require('./lib/userObject');
+var MongoSessionStore   = require('connect-mongo')(session);
 var flash               = require('express-flash');
 var cookieParser        = require('cookie-parser');
 var bodyParser          = require('body-parser');
@@ -73,7 +74,8 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+    let userOb = new userObject (user);
+    done(null, userOb);
 });
 
 app.use(passport.initialize());

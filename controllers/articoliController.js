@@ -6,9 +6,6 @@ exports.vedi = function(req, res, next) {
 
     let slug = req.params.articoloSlug;
 
-    console.log (slug);
-
-
 
     Articoli.
         findOne().

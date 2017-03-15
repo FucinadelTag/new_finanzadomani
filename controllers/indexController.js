@@ -12,7 +12,6 @@ exports.index = function(req, res, next) {
         limit(5).
         exec(function (err, articoli) {
             if (err) return console.error(err);
-            console.log (articoli);
             res.render('index', { articoli: articoli})
     });
 

@@ -23,12 +23,9 @@ exports.edit = function(req, res, next) {
     const formData = (req.body);
     const id = (req.body._id);
 
-    console.log (id);
-
     delete formData._id;
 
     if (id == ''){
-        console.log ('aggiungo');
 
 
         let categoriaNew = new PostCategory(formData);
@@ -52,12 +49,10 @@ exports.edit = function(req, res, next) {
 
 exports.vedi = function(req, res, next) {
 
-    console.log (req.params);
 
     let id = req.params.categoriaId;
 
     PostCategory.findById(id, function (err, categoria) {
-        console.log (req.categoria);
         res.render('admin/categories/edit', { categoria: categoria, expressFlash: req.flash('success')})
 
     });

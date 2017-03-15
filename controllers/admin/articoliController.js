@@ -30,8 +30,6 @@ exports.list = function(req, res, next) {
 
 exports.table = function(req, res, next) {
 
-    console.log(req.query);
-
     let order = req.query.order[0];
     let orderColumn = req.query.columns[order.column].data;
     let orderDir = order.dir;
@@ -76,8 +74,6 @@ exports.edit = function(req, res, next) {
 
     formData.aziende = _.split (formData.aziende, ',');
 
-    console.log (formData);
-
     Articoli.findOneAndUpdate({_id: id}, formData, { new: true, upsert: false })
         .exec(function (err, updated) {
             req.flash('success', 'Articolo Aggiornato con successo');
@@ -99,7 +95,6 @@ exports.vedi = function(req, res, next) {
         populate('categoria').
         exec(function (err, articolo) {
             if (err) return console.error(err);
-            console.log (articolo.url);
             PostCategory.
                 find().
                 sort('ordine').
