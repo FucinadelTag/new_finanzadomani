@@ -25,7 +25,7 @@
 
 $global-font-size: 100%;
 
-$colore-princpiale: #F52887;
+$colore-princpiale: #ffffff;
 
 @import '../../node_modules/foundation-sites/scss/foundation';
 @include foundation-everything (true);
@@ -72,9 +72,10 @@ small {
 }
 
 span.titolo_rubrica_piccolo {
-    background-color: scale-color($colore-princpiale, $lightness: 40%);;
-    color: $white;
-    padding: 2px;
+    background-color: $colore-princpiale;
+    border: solid 1px scale-color($black, $lightness: 80%);
+    color: $black;
+    padding: 3px;
     font-size: 80%;
     margin-right: 10px;
 }
@@ -116,12 +117,14 @@ article {
 
 .principale {
     background-color: $colore-princpiale;
-    font-weight: 900;
+    border-bottom: solid 1px scale-color($black, $lightness: 80%);
+    border-top: solid 1px scale-color($black, $lightness: 80%);
+    //font-weight: 900;
 
     a {
-        color: $white;
+        color: $black;
         &:hover {
-            color: scale-color($colore-princpiale, $lightness: 90%);
+            color: scale-color($black, $lightness: 20%);
         }
     }
 
