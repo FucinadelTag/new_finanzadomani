@@ -24,6 +24,8 @@
 
     <div class="ui active tab segment" data-tab="datiPrincipali">
         <form class="ui form" method="post" action="/admin/articoli/edit" enctype="multipart/form-data">
+
+            <h4 class="ui dividing header">{{articolo.titolo}} - <div class="ui primary submit small button sticky"><i class="save icon"></i> Salva</div></h4>
             <input type="hidden" name="_id" value="{{articolo._id}}">
 
             <div class="two fields">
@@ -150,7 +152,7 @@
                     <input type="number" name="ordine">
                 </div>
                 <div class="field">
-                    <label>Categoria</label>
+                    <label>Layout</label>
                     <div class="ui selection dropdown">
                         <input type="hidden" name="layout" value="{{articolo.layout}}">
                         <i class="dropdown icon"></i>
@@ -182,8 +184,7 @@
         $('.ui.form')
             .form({
                 fields: {
-                    titolo     : 'empty',
-                    testo     : 'empty'
+                    titolo     : 'empty'
                 },
                 inline : true
         });

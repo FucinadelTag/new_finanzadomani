@@ -37,7 +37,7 @@
         <div class="row">
             <div class="shrink columns">
                 {% if articolo.immagine %}
-                    <img src="{{articolo.immagine | imgx ({w: 1300, h: 400})}}" />
+                    <img src="{{articolo.immagine | imgx ({w: 750, h: 400})}}" />
                 {% endif %}
             </div>
         </div>
@@ -85,18 +85,13 @@
     </article>
     <hr>
     <div class="row align-justify align-middle">
-        <div class="columns small-9">
+        <div class="columns small-12">
             {% for azienda in articolo.aziende  %}
                 <a class="hollow button secondary small" href="/aziende/{{azienda.codice}}">{{azienda.titolo}}</a>
             {% endfor %}
 
         </div>
 
-        <div class="columns small-3">
-
-            <small> {{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
-
-        </div>
 
     </div>
 

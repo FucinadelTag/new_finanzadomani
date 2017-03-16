@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.22.0",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.0",
     "busboy-body-parser": "^0.3.0",
     "connect-ensure-login": "^0.1.1",

@@ -4,6 +4,7 @@ var Aziende         = require('../../models/Aziende');
 var ImgixClient     = require('imgix-core-js');
 var AWS             = require ('aws-sdk');
 var _               = require('lodash');
+var Promise         = require('bluebird');
 
 AWS.config.loadFromPath('./config.json');
 var s3 = new AWS.S3({
@@ -89,57 +90,29 @@ exports.vedi = function(req, res, next) {
 
     let id = req.params.articoloId;
 
-    Articoli.
-        findOne().
-        where('_id').equals(id).
-        populate('categoria').
-        exec(function (err, articolo) {
-            if (err) return console.error(err);
-            PostCategory.
-                find().
-                sort('ordine').
-                exec(function (err, categorieOk) {
-                    if (err) return console.error(err);
-                    res.locals.categorieOk = categorieOk;
-                    Aziende.
-                        find().
-                        sort('titolo').
-                        exec(function (err, aziendeOk) {
-                            if (err) return console.error(err);
-                            res.locals.aziendeOk = aziendeOk;
+    let promiseArticoli =   Articoli.
+                            findOne().
+                            where('_id').equals(id).
+                            populate('categoria').
+                            exec();
 
-                            res.render('admin/articoli/edit', { articolo: articolo, expressFlash: req.flash('success')})
-                    });
+    let promiseCategory =   PostCategory.
+                            find().
+                            sort('ordine').
+                            exec();
 
-                    //paragrafiSorted = _.sortBy (articolo.paragrafi, ['titolo']);
+    let promiseAzienda =    Aziende.
+                            find().
+                            sort('titolo').
+                            exec();
 
-                    //articolo.paragrafi = paragrafiSorted;
+    let arrayPromises = [promiseArticoli, promiseCategory, promiseAzienda];
 
-                    //res.render('admin/articoli/edit', { articolo: articolo, expressFlash: req.flash('success')})
-            });
+    Promise.all(arrayPromises).then(values => {
+
+        res.render('admin/articoli/edit', { articolo: values[0], categorieOk: values[1], aziendeOk: values[2],  expressFlash: req.flash('success')})
 
     });
-
-
-
-    // Articoli.findById(id, function (err, articolo) {
-    //     PostCategory.
-    //         find().
-    //         sort('ordine').
-    //         exec(function (err, categorie) {
-    //             if (err) return console.error(err);
-    //             res.locals.categorie = categorie;
-
-    //             //paragrafiSorted = _.sortBy (articolo.paragrafi, ['titolo']);
-
-    //             //articolo.paragrafi = paragrafiSorted;
-
-    //             res.render('admin/articoli/edit', { articolo: articolo.toJSON(), expressFlash: req.flash('success')})
-    //     });
-
-
-    // });
-    //res.render('admin/categories/index', { title: 'Hey', message: 'Hello ADMIN there!' })
 };
 
 exports.paragrafiDelete = function(req, res, next) {

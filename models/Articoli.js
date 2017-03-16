@@ -33,7 +33,13 @@ var articoliSchema = new Schema({
 });
 
 articoliSchema.virtual('url').get(function () {
-  return '/articoli/' + this.categoria.slug + '/' + this.slug;
+    if (this.categoria){
+        return '/articoli/' + this.categoria.slug + '/' + this.slug;
+    }
+
+    return '#';
+
+
 });
 
 

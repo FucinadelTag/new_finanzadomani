@@ -28,6 +28,7 @@ require('dotenv').config()
 //MONGOOSE
 var mongoDB = process.env.MONGO_URI;
 mongoose.connect(mongoDB);
+mongoose.Promise = require('bluebird');
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 

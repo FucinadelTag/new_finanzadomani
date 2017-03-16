@@ -1,7 +1,7 @@
 <form class="ui form" method="post" action="/admin/categorie/edit">
     <input type="hidden" name="_id" value="{{categoria._id}}">
 
-    <div class="two fields">
+    <div class="three fields">
         <div class="required field">
             <label>Nome</label>
             <input type="text" name="name" value="{{categoria.name}}">
@@ -10,6 +10,18 @@
         <div class="required field">
             <label>Ordine</label>
             <input type="number" name="ordine" value="{{categoria.ordine}}" placeholder="Ordine di visualizzazione delle categorie">
+        </div>
+        <div class="field">
+            <label>In Home</label>
+            <div class="ui selection dropdown">
+              <input type="hidden" name="inhome" value="{{categoria.inhome}}">
+              <i class="dropdown icon"></i>
+              <div class="default text">Si o No</div>
+              <div class="menu">
+                  <div class="item" data-value="si">Si</div>
+                  <div class="item" data-value="no">No</div>
+              </div>
+          </div>
         </div>
     </div>
     <div class="field">
@@ -30,5 +42,7 @@
                 },
                 inline : true
         });
+
+         $('.ui.selection.dropdown').dropdown();
 
 </script>

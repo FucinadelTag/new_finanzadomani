@@ -13,7 +13,8 @@ var Schema = mongoose.Schema;
 var postCategorySchema = new Schema({
     name: { type: String, required: true },
     ordine: { type: Number, required: true, default: 0 },
-    description: { type: String, height: 200 }
+    description: { type: String, height: 200 },
+    inhome: { type: String, required: false, default: 'si' }
 });
 
 postCategorySchema.plugin(timestamps);
