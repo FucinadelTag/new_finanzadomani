@@ -72,7 +72,7 @@ small {
 }
 
 span.titolo_rubrica_piccolo {
-    background-color: $colore-princpiale;
+    background-color: scale-color($black, $lightness: 97%);
     border: solid 1px scale-color($black, $lightness: 80%);
     color: $black;
     padding: 3px;
@@ -80,41 +80,48 @@ span.titolo_rubrica_piccolo {
     margin-right: 10px;
 }
 
-article {
+.centro {
+    article {
 
-    padding-bottom: 10px;
+        padding-bottom: 10px;
+        border-top: solid 1px scale-color($black, $lightness: 90%);
+        padding-top: rem-calc(2);
 
-    h1 {
-        margin-bottom: rem-calc(1);
-        line-height: 1;
-        font-weight: 900;
-    }
 
-    h2 {
-        font-size: rem-calc(25);
-        font-weight: 900;
-    }
-
-    a {
-        color: $black;
-        &:hover {
-            color: scale-color($black, $lightness: 15%);
+        h1 {
+            margin-bottom: rem-calc(1);
+            line-height: 1;
+            font-weight: 900;
         }
-    }
 
-    img {
-        margin-bottom: rem-calc(10);
-    }
+        h2 {
+            font-size: rem-calc(25);
+            font-weight: 900;
+        }
 
-    .testo_evidenza {
-        border: solid 1px scale-color($black, $lightness: 80%);
-        margin-right: rem-calc(10);
-        margin-left: rem-calc(10);
-        padding: rem-calc(10);
-        background-color: scale-color($black, $lightness: 90%);
-    }
+        a {
+            color: $black;
+            &:hover {
+                color: scale-color($black, $lightness: 40%);
+            }
+        }
 
+        img {
+            margin-bottom: rem-calc(10);
+        }
+
+        .testo_evidenza {
+            border: solid 1px scale-color($black, $lightness: 80%);
+            margin-right: rem-calc(10);
+            margin-left: rem-calc(10);
+            padding: rem-calc(10);
+            background-color: scale-color($black, $lightness: 90%);
+        }
+
+    }
 }
+
+
 
 .paragrafo {
     img {
@@ -138,7 +145,7 @@ article {
 
 }
 
-.leftMenu {
+.rightMenu {
 
     border-left: solid 1px scale-color($black, $lightness: 80%);
 
@@ -146,19 +153,20 @@ article {
 
 .destra {
 
+    .titolo {
+        padding-bottom: rem-calc(3);
+        font-weight: 800;
+    }
+
     article {
+
+        background-color: scale-color($black, $lightness: 95%);
+        padding: rem-calc(5);
+        margin-bottom: rem-calc(3);
 
         h2 {
             font-size: rem-calc(16);
-            font-weight: 350;
-        }
-
-        a {
-            color: $black;
-            &:hover {
-                color: scale-color($black, $lightness: 15%);
-            }
-            font-size: rem-calc(12);
+            font-weight: 100;
         }
 
 

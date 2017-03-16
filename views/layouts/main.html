@@ -97,20 +97,29 @@
 
     <div class="row" id="content">
 
-        <div class="small-12 medium-9 columns">
+        <div class="small-12 medium-9 columns centro">
         {% block content %}{% endblock %}
         </div>
 
 
-        <div class="small-12 medium-3 columns leftMenu">
+        <div class="small-12 medium-3 columns rightMenu">
             <nav>
                 <div class="destra">
                     <div class="row">
                         <div class="columns">
-                            Idee di Investimento<br>
-                             {% for idea in ideeInvestimento %}
+                            <div class="titolo">
+                                Idee di investimento
+                            </div>
 
-                                {{ idea.titolo }}
+                             {% for idea in ideeInvestimento %}
+                             <article>
+                                <small>{{idea.dataPubblicazione | date("DD-MM-YYYY")}}</small>
+                                <br>
+                                <h2><a href="{{idea.url}}">{{ idea.titolo }}</a></h2>
+                             </article>
+
+
+
 
                             {% endfor %}
                         </div>

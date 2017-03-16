@@ -3,7 +3,11 @@ var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 var router = express.Router();
 
+var menuDestra  = require('../lib/middleware/menuDestra.js');
+
 var index_controller = require('../controllers/indexController');
+
+router.use(menuDestra.setData);
 
 router.get('/', index_controller.index);
 

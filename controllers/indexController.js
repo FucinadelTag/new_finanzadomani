@@ -22,20 +22,12 @@ exports.index = function(req, res, next) {
                                 limit(10).
                                 exec();
 
-        let promiseIdeeDiInvestimento = Articoli.
-                                        find().
-                                        where('stato').equals('pubblicato').
-                                        where ('categoria').equals('58b96253aac4c971138d321b').
-                                        sort('-dataPubblicazione').
-                                        populate('categoria').
-                                        limit(10).
-                                        exec();
 
-        let arrayPromises = [promiseArticoli, promiseIdeeDiInvestimento];
+        let arrayPromises = [promiseArticoli];
 
         Promise.all(arrayPromises).then(values => {
 
-            res.render('index', { articoli: values[0], ideeInvestimento: values[1]})
+            res.render('index', { articoli: values[0]})
 
         });
 
