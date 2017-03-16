@@ -5,24 +5,26 @@
     <article>
     <a href="{{articolo.url}}">
         <div class="row">
-            <div class="columns">
-                <img src="{{articolo.immagine | imgx ({w: 500, h: 250})}}" />
-            </div>
-        </div>
-        <div class="row">
             <div class="small-12 columns">
                 <h2>
                     {{articolo.titolo}}<br class="show-for-large-up">
                 </h2>
-                <span class="titolo_rubrica_piccolo">{{articolo.categoria.name}}</span> <small>{{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
 
-                {{articolo.abstract| markdownToHtml | safe| truncate(200)}}
+                <p>
+                    <span class="titolo_rubrica_piccolo">{{articolo.categoria.name}}</span> <small>{{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
+                </p>
+
+                <p>
+                    <img src="{{articolo.immagine | imgx ({w: 500, h: 250})}}" />
+                    {{articolo.abstract| markdownToHtml | safe| truncate(200)}}
+                </p>
                 <br><i>Leggi tutto</i>
 
             </div>
         </div>
     </a>
     </article>
+    <div class="spazio_bianco"></div>
 </div>
 
 {% endmacro %}

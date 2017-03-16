@@ -38,12 +38,13 @@
         </div>
     </section>
 {% endfor %}
-<hr>
+
+<div class="spazio_bianco"></div>
+
 <div class="row small-up-1 medium-up-2">
     {% for articolo in articoli | limitTo (1, 5) %}
 
            {{ articolo_lista.articolo_lista(articolo) }}
-
 
     {% endfor %}
 

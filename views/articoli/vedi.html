@@ -50,7 +50,7 @@
         <!-- Consiglione -->
         {% if articolo.consiglio !='' %}
         <div class="row">
-            <div class="columns callout warning">
+            <div class="columns testo_evidenza">
 
                 <h2>Come Investire</h2>
                 <hr>
@@ -58,6 +58,8 @@
             </div>
         </div>
         {% endif %}
+
+        <div class="spazio_bianco"></div>
 
 
         {% for paragrafo in articolo.paragrafi  %}

@@ -106,6 +106,14 @@ article {
         margin-bottom: rem-calc(10);
     }
 
+    .testo_evidenza {
+        border: solid 1px scale-color($black, $lightness: 80%);
+        margin-right: rem-calc(10);
+        margin-left: rem-calc(10);
+        padding: rem-calc(10);
+        background-color: scale-color($black, $lightness: 90%);
+    }
+
 }
 
 .paragrafo {
@@ -124,9 +132,15 @@ article {
     a {
         color: $black;
         &:hover {
-            color: scale-color($black, $lightness: 20%);
+            color: scale-color($black, $lightness: 30%);
         }
     }
+
+}
+
+.leftMenu {
+
+    border-left: solid 1px scale-color($black, $lightness: 80%);
 
 }
 
