@@ -6,6 +6,8 @@ exports.vedi = function(req, res, next) {
 
     let slug = req.params.articoloSlug;
 
+    req.session.returnTo = req.originalUrl;
+
 
     Articoli.
         findOne().
@@ -14,7 +16,7 @@ exports.vedi = function(req, res, next) {
         populate('aziende').
         exec(function (err, articolo) {
             if (err) return console.error(err);
-            res.render('articoli/vedi', { articolo: articolo})
+            res.render('articoli/vedi', { articolo: articolo, user: req.user})
     });
     //res.render('admin/categories/index', { title: 'Hey', message: 'Hello ADMIN there!' })
 };

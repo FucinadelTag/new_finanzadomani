@@ -35,6 +35,7 @@
     "passport-auth0": "^0.6.0",
     "path": "^0.12.7",
     "slug": "^0.9.1",
+    "stripe": "^4.15.1",
     "underscore": "^1.8.3"
   },
   "scripts": {

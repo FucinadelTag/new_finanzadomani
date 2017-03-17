@@ -27,6 +27,11 @@ $global-font-size: 100%;
 
 $colore-princpiale: #ffffff;
 
+$colore-evidenza: #ff0a0a;
+
+$evidence-color: #ffed00 !default;
+$button-background-hover: scale-color($evidence-color, $lightness: -15%);
+
 @import '../../node_modules/foundation-sites/scss/foundation';
 @include foundation-everything (true);
 
@@ -80,6 +85,13 @@ span.titolo_rubrica_piccolo {
     margin-right: 10px;
 }
 
+.ctaButton {
+    @include button-style($evidence-color, $button-background-hover, #000000);
+    font-size: rem-calc(20, null);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
 .centro {
     article {
 
@@ -97,6 +109,13 @@ span.titolo_rubrica_piccolo {
         h2 {
             font-size: rem-calc(25);
             font-weight: 900;
+            display: block;
+        }
+
+        h3 {
+            font-size: rem-calc(20);
+            font-weight: 100;
+            display: block;
         }
 
         a {
@@ -116,6 +135,43 @@ span.titolo_rubrica_piccolo {
             margin-left: rem-calc(10);
             padding: rem-calc(10);
             background-color: scale-color($black, $lightness: 90%);
+        }
+
+        .box_promo_articolo {
+            border: solid 1px scale-color($black, $lightness: 80%);
+            margin-right: rem-calc(10);
+            margin-left: rem-calc(10);
+            padding: rem-calc(10);
+
+            li {
+                font-size: rem-calc(18);
+            }
+
+            .prezzo {
+                font-size: 1.7rem;
+                color: #ff2424;
+                padding: 0.3125rem;
+            }
+
+            .prezzo_intero {
+                text-decoration: line-through;
+            }
+
+            .titolo {
+                color: $colore-evidenza;
+                text-align: center;
+                border-bottom: solid 1px scale-color($black, $lightness: 80%);
+                margin-bottom: rem-calc(10);
+
+                h2 {
+                    font-size: rem-calc(35);
+                }
+
+                h3 {
+                    font-size: rem-calc(25);
+                }
+
+            }
         }
 
     }

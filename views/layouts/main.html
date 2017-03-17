@@ -35,7 +35,10 @@
           integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
           crossorigin="anonymous">
         </script>
-        <script src="https://cdn.auth0.com/w2/auth0-7.6.1.min.js"></script>
+
+        <script src="https://cdn.auth0.com/js/auth0/8.0.0/auth0.min.js"></script>
+        <script src="https://cdn.auth0.com/js/lock/10.13.0/lock.min.js"></script>
+
 
         {# Include template-specific stylesheets by extending the css block #}
         {% block css %}{% endblock %}
@@ -62,12 +65,21 @@
                 <li><a href="/"><img src="https://dato-images.imgix.net/702/1485530920-finanzadomani-png?auto=format&h=40&fit=crop&crop=entropy."> </a></li>
             </ul>
         </div>
-        <!-- <div class="top-bar-right">
-            <ul class="menu">
-                <li><a href="#">Portafogli</a></li>
-                <li><a href="#">Certificate</a></li>
-            </ul>
-        </div> -->
+        <div class="top-bar-right">
+            {% if user.isCliente %}
+
+                Ciao <i>{{user.getDisplayName()}}</i>
+                <br>
+                <a href="/logout">Logout</a>
+            {% else %}
+
+                <a class="loginButton">Login</a> | <a class="loginButton">Registrati</a>
+
+            {% endif %}
+
+
+
+        </div>
     </div>
 
     <div class="title-bar show-for-small-only" data-responsive-toggle="menuPrincipale" data-hide-for="medium">
@@ -140,6 +152,10 @@
                     <li><a href="#">Chi siamo</a></li>
                     <li><a href="#">Abbonamenti</a></li>
                     <li><a href="#">Account</a></li>
+                    {% if user.isStaff %}
+                        <li><a href="/admin">Admin</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <div class="small-12 medium-6 columns">
@@ -166,7 +182,49 @@
             $(document).foundation();
         </script>
 
+        <script type="text/javascript">
+
+        // Construct an instance of Auth0Lock with your clientId and aut0 domain name
+        var lock = new Auth0Lock('{{env.AUTH0_CLIENT_ID}}', '{{env.AUTH0_DOMAIN}}',{
+                languageDictionary: {
+                    title: "Finanza Domani"
+                },
+                language: 'it',
+                auth: {
+                    redirectUrl: '{{env.AUTH0_CALLBACK_URL}}',
+                    responseType: 'code',
+                    params: {
+                        scope: 'openid name email picture'
+                    }
+                },
+                theme: {
+                    logo: 'https://dato-images.imgix.net/702/1485530920-finanzadomani-png?auto=format&h=40&fit=crop&crop=entropy',
+                    primaryColor: '#31324F'
+                }
+            });
+
+        // Listening for the authenticated event
+        lock.on("authenticated", function(authResult) {
+            // Use the token in authResult to getUserInfo() and save it to localStorage
+            lock.getUserInfo(authResult.accessToken, function(error, profile) {
+                if (error) {
+                  console.log (error);
+                  return;
+                }
+            });
+        });
+
+
+            $( ".loginButton" ).on( "click", function() {
+                console.log ('loginButton');
+                lock.show();
+            });
+
+
+
+    </script>
+
         {# Include template-specific javascript files by extending the js block #}
-        {% block js %}{% endblock %}
+        {% block myScript %}{% endblock %}
     </body>
 </html>

@@ -17,6 +17,7 @@ var path                = require('path')
 var mongoose            = require('mongoose');
 const busboyBodyParser  = require('busboy-body-parser');
 
+
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 
@@ -119,7 +120,8 @@ app.use(busboyBodyParser());
 //PUBLIC
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+var fdtUser  = require('./lib/middleware/fdtUser.js');
+app.use(fdtUser.init);
 
 
 //ROUTERS
@@ -138,6 +140,7 @@ app.use('/', index);
 
 let user = require('./routes/user');
 app.use('/user', user);
+
 
 
 

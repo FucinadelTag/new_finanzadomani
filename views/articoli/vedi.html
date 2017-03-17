@@ -46,17 +46,66 @@
                 <span class="abstract">{{articolo.abstract|markdownToHtml|safe}}</span>
             </div>
         </div>
-
         <!-- Consiglione -->
-        {% if articolo.consiglio !='' %}
-        <div class="row">
-            <div class="columns testo_evidenza">
+        {% if user.isAbbonato %}
 
-                <h2>Come Investire</h2>
-                <hr>
-                <span>{{articolo.consiglio|markdownToHtml|safe}}</span>
+            {% if articolo.consiglio !='' %}
+            <div class="row">
+                <div class="columns testo_evidenza">
+
+                    <h2>Come Investire</h2>
+                    <hr>
+                    <span>{{articolo.consiglio|markdownToHtml|safe}}</span>
+                </div>
             </div>
-        </div>
+            {% endif %}
+
+        {%else%}
+
+            <!-- BOX ABBONAMENTO -->
+            <div class="row box_promo_articolo">
+                <div class="columns">
+                    <div class="row">
+                        <div class="columns titolo">
+                            <h2>Devo comprare o vendere?</h2>
+                            <h3>Abbonati per leggere i nostri consigli</h3>
+                        </div>
+                    </div>
+
+                    <div class="row align-middle">
+                        <div class="columns medium-6">
+                            <h3>Ogni giorno per i nostri abbonati</h3>
+                            <ol>
+                                <li>
+                                    Consigli di investimento quotidiani
+                                </li>
+                                <li>
+                                    Conclusioni utili ad ogni notizia
+                                </li>
+                                <li>
+                                    Portafogli costantemente aggiornati
+                                </li>
+                                <li>
+                                    Aggiornamenti in tempo reale
+                                </li>
+                            </ol>
+
+
+                        </div>
+                        <div class="columns">
+
+                                <span class="prezzo_intero">€ 99,00</span> <i>Sconto del 50%</i><br>
+
+                                <span class="prezzo">€ 49,50 + IVA</span><br>
+                                <small>Sconto valido fino <i><span class="dataPromo">al 30 Maggio 2017</span></i></small><br>
+                                <div class="button ctaButton loginButton" >Prova per 15 Giorni!</div><br>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         {% endif %}
 
         <div class="spazio_bianco"></div>
@@ -95,27 +144,12 @@
 
     </div>
 
-    <hr>
 
-    <div id="disqus_thread"></div>
 
-    <script>
+{% endblock %}
 
-        var disqus_config = function () {
-            this.page.url = 'https://www.finanzadomani.it/post/{{data.post.slug}}';  // Replace PAGE_URL with your page's canonical URL variable
-            this.page.identifier = '{{data.post.slug}}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        };
 
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-            s.src = '//www-finanzadomani-it.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
 
-    </script>
-
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
+{% block myScript %}
 
 {% endblock %}
