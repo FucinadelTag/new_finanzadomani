@@ -126,8 +126,10 @@ app.use(fdtUser.init);
 
 //ROUTERS
 let admin = require('./routes/admin');
-
 app.use('/admin', admin);
+
+let api = require('./routes/api');
+app.use('/api', api);
 
 let aziende = require('./routes/aziende');
 app.use('/aziende', aziende);
