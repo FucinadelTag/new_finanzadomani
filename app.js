@@ -35,19 +35,22 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 //APP
 var app = express();
+//PUBLIC
+app.use(express.static(path.join(__dirname, 'public')));
+
 var sessionStore = new MongoSessionStore({ mongooseConnection: db });
 
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     cookie: {
-        maxAge: 30 * 24 * 60 * 60 * 1000, //g*h*m*s*ms
-        httpOnly: false,
+        maxAge: 1 * 24 * 60 * 60 * 1000, //g*h*m*s*ms
+        httpOnly: true,
         secure: false
     },
     store: sessionStore,
-    saveUninitialized: true,
-    resave: 'true',
+    saveUninitialized: false,
+    resave: false,
     secret: process.env.COOKIE_SECRET
 }));
 app.use(flash());
@@ -72,12 +75,21 @@ passport.use(strategy);
 
 // This can be used to keep a smaller payload
 passport.serializeUser(function(user, done) {
-  done(null, user);
+    console.log (user);
+    done(null, user.id);
 });
 
-passport.deserializeUser(function(user, done) {
-    let userOb = new userObject (user);
-    done(null, userOb);
+var FdTUser   = require('./models/User');
+passport.deserializeUser(function(userId, done) {
+
+    FdTUser.
+        findOne().
+        where('auth0Id').equals(userId).
+        exec(function (err, userOk) {
+            if (err) return console.error(err);
+            let userOb = new userObject (userOk);
+            done(null, userOb);
+        });
 });
 
 app.use(passport.initialize());
@@ -116,9 +128,6 @@ app.use(sassMiddleware({
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(busboyBodyParser());
-
-//PUBLIC
-app.use(express.static(path.join(__dirname, 'public')));
 
 var fdtUser  = require('./lib/middleware/fdtUser.js');
 app.use(fdtUser.init);

@@ -6,7 +6,7 @@ exports.vedi = function(req, res, next) {
 
     let slug = req.params.articoloSlug;
 
-    req.user.getAuth0User ();
+    //req.user.getAuth0User ();
 
     req.session.returnTo = req.originalUrl;
 
