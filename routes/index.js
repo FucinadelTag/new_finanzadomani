@@ -41,10 +41,24 @@ router.get('/callback',
         // Find the document
         FdTUser.findOneAndUpdate(query, userData, options, function(error, result) {
             if (error) throw new Error(error);
-            console.log (result);
-            let userOb = new userObject (result);
+            var userOb = new userObject (result);
 
-            res.redirect(req.session.returnTo || '/user');
+            userOb.createStripeUser ()
+                .then(function (stripeUser){
+                    return  userOb.saveStripeId (stripeUser);
+                }).then(function (user){
+                    return  userOb.subscribeFreeTrialUser (user, 'abbonamento_base');
+                }).then(function (subscribeData) {
+                    console.log (subscribeData);
+                    return  userOb.getStripeUser (subscribeData.customer);
+                }).then(function (stripeUser) {
+                    return  userOb.saveStripeId (stripeUser);
+                }).then(function (user) {
+                    res.redirect(req.session.returnTo || '/user');
+                });
+
+
+
 
         });
 
