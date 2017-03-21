@@ -35,6 +35,15 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 //APP
 var app = express();
+
+//SASS MIDDLEWARE
+app.use(sassMiddleware({
+    /* Options */
+    src: './public',
+    dest: path.join(__dirname, 'public'),
+    debug: true,
+    outputStyle: 'compressed'
+}));
 //PUBLIC
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -111,18 +120,6 @@ njk.env.addFilter('markdownToHtml', markdownToHtml);
 njk.env.addFilter('limitTo', limitTo);
 njk.env.addFilter('arrayToString', arrayToString);
 
-
-
-
-
-//SASS MIDDLEWARE
-app.use(sassMiddleware({
-    /* Options */
-    src: './public',
-    dest: path.join(__dirname, 'public'),
-    debug: true,
-    outputStyle: 'compressed'
-}));
 
 //BODY
 app.use(bodyParser.json()); // for parsing application/json

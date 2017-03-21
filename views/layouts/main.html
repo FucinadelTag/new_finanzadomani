@@ -66,16 +66,16 @@
             </ul>
         </div>
         <div class="top-bar-right">
-            {% if user.isCliente %}
+            <span class="userdata">
+                {% if user.isCliente %}
 
-                Ciao <i>{{user.getDisplayName()}}</i>
-                <br>
-                <a href="/logout">Logout</a>
-            {% else %}
+                    Ciao <i>{{user.getDisplayName()}}</i> | <a href="/logout">Logout</a>
+                {% else %}
 
-                <a class="loginButton">Login</a> | <a class="loginButton">Registrati</a>
+                    <a class="loginButton">Account</a>
 
-            {% endif %}
+                {% endif %}
+            </span>
 
 
 
@@ -151,7 +151,6 @@
                 <ul class="menu vertical medium-horizontal">
                     <li><a href="#">Chi siamo</a></li>
                     <li><a href="#">Abbonamenti</a></li>
-                    <li><a href="#">Account</a></li>
                     {% if user.isStaff %}
                         <li><a href="/admin">Admin</a></li>
                         <li><a href="/logout">Logout</a></li>
