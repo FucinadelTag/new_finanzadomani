@@ -42,33 +42,19 @@
 
 <div class="ui stackable grid">
     <div class="row">
-        <div class="three wide column">
-            <a href="/admin"><img src="https://dato-images.imgix.net/702/1485530920-finanzadomani-png?auto=format&h=40&fit=crop&crop=entropy."> </a>
 
-            <div class="ui vertical pointing menu">
-                <div class="item">
-                    <div class="header">Contenuti</div>
-
-                    <div class="menu">
+        <div class="sixteen wide column">
+            <div class="ui inverted stackable blue menu">
                     {% for menu in adminMenu %}
                       <a class="item {{menu.active}}" href="/admin/{{menu.key}}">{{menu.nome}}</a>
                     {% endfor %}
-                    </div>
+                     <div class="right menu">
 
-                </div>
-                <div class="item">
-                        <div class="header">Settings</div>
-
-                        <div class="menu">
                           <a class="item" href="/logout/">Logout</a>
                           <a class="item" href="/">Home</a>
-                        </div>
-                </div>
+                    </div>
             </div>
 
-        </div>
-
-        <div class="thirteen wide column">
 
             {% block flashMessageBlock %}
                 {% if expressFlash !='' %}
