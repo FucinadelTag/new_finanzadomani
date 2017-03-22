@@ -6,3 +6,9 @@ body {
     padding-top: 10px;
     border: solid 1px #cecece;
 }
+
+.ui.form.field {
+    label {
+        font-size: 10px;
+    }
+}
