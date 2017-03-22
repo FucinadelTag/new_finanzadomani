@@ -1,0 +1,88 @@
+{% extends "layouts/account.html" %}
+
+
+
+{% block content %}
+
+<div class="ui two column centered grid">
+  <div class="column">
+
+        <form class="ui big form" method="post" action="/account/edit" id="payment-form">
+
+        <input type="hidden" name="_id" value="{{user.getFdtUserId()}}">
+
+        <h1 class="ui dividing header">Carta di credito</h1>
+
+            <div class="field">
+                <label for="card-element"></label>
+                <div id="card-element">
+
+                </div>
+            </div>
+
+            <div id="card-errors">
+
+            </div>
+
+            <button class="ui blue button" type="submit"><i class="save icon"></i> Salva</button>
+        </form>
+
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block myScript %}
+    <script type="text/javascript">
+
+    const stripe = Stripe('pk_test_iU3Fy31AdJYYRNK7ztZdJMuf');
+    const elements = stripe.elements();
+
+    const style = {
+        base: {
+            // Add your base input styles here. For example:
+            fontSize: '16px',
+            lineHeight: '24px',
+        },
+    };
+
+    // Create an instance of the card Element
+    const card = elements.create('card', {style});
+
+    // Add an instance of the card Element into the `card-element` <div>
+    card.mount('#card-element');
+
+    card.addEventListener('change', ({error}) => {
+
+        const displayError = document.getElementById('card-errors');
+        if (error) {
+            displayError.textContent = error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    // Create a token or display an error the form is submitted.
+    const form = document.getElementById('payment-form');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const {token, error} = await stripe.createToken(card);
+
+      if (error) {
+        // Inform the user if there was an error
+        const errorElement = document.getElementById('card-errors');
+        errorElement.textContent = error.message;
+      } else {
+        // Send the token to your server
+        console.log (token);
+        //stripeTokenHandler(token);
+      }
+    });
+
+
+
+    </script>
+{% endblock %}

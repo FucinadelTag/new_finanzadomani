@@ -9,4 +9,6 @@ var user_controller = require('../controllers/account/userController');
 router.get('/', ensureLoggedIn, user_controller.index);
 router.post('/edit', ensureLoggedIn, user_controller.edit);
 
+router.get('/pagamento', ensureLoggedIn, user_controller.pagamento);
+
 module.exports = router;
