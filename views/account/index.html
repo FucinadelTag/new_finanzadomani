@@ -1,0 +1,87 @@
+{% extends "layouts/account.html" %}
+
+
+
+{% block content %}
+
+
+<div class="ui two column centered grid">
+  <div class="column">
+
+        <form class="ui big form" method="post" action="/account/edit">
+
+        <input type="hidden" name="_id" value="{{user.getFdtUserId()}}">
+
+        <h1 class="ui dividing header">Modifica i tuoi dati personali</h1>
+            <div class="two fields">
+                <div class="field required">
+                    <label>Nome</label>
+                    <input type="text" name="nome" value="{{user.getNome()}}" placeholder="Nome">
+                </div>
+                <div class="field required">
+                    <label>Cognome</label>
+                    <input type="text" name="cognome" value="{{user.getCognome()}}" placeholder="Cognome">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field required">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{user.getEmail()}}" placeholder="Indirizzo Email">
+                </div>
+                <div class="field">
+                    <label>Telefono</label>
+                    <input type="text" name="telefono" value="{{user.getTelefono()}}" placeholder="Telefono">
+                </div>
+            </div>
+          <button class="ui blue button" type="submit"><i class="save icon"></i> Salva</button>
+        </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block myScript %}
+<script type="text/javascript">
+
+
+        $('.ui.form')
+            .form({
+                fields: {
+                    nome: {
+                        identifier  : 'nome',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          }
+                        ]
+                    },
+                    cognome: {
+                        identifier  : 'cognome',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          }
+                        ]
+                    },
+                    email: {
+                        identifier  : 'email',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          },
+                          {
+                            type   : 'email',
+                            prompt : 'Inserisci un indirizzo email valido'
+                          }
+                        ]
+                    },
+                },
+                inline : true
+        });
+
+</script>
+{% endblock %}

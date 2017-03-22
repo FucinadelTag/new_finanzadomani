@@ -69,7 +69,8 @@
             <span class="userdata">
                 {% if user.isCliente %}
 
-                    Ciao <i>{{user.getDisplayName()}}</i> | <a href="/logout">Logout</a>
+                    Ciao <i>{{user.getDisplayName()}}</i><br>
+                    <a href="/account">Account</a> | <a href="/logout">Logout</a>
                 {% else %}
 
                     <a class="loginButton">Account</a>

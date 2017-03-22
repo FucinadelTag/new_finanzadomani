@@ -146,8 +146,8 @@ app.use('/articoli', articoli);
 let index = require('./routes/index');
 app.use('/', index);
 
-let user = require('./routes/user');
-app.use('/user', user);
+let account = require('./routes/account');
+app.use('/account', account);
 
 
 

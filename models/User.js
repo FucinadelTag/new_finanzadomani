@@ -7,6 +7,10 @@ var Schema = mongoose.Schema;
 
 
 var userSchema = new Schema({
+    nome: { type: String, required: false },
+    cognome: { type: String, required: false },
+    email: { type: String, required: false },
+    telefono: { type: String, required: false },
     auth0Id: { type: String, required: true },
     auth0: { type: Schema.Types.Mixed },
     stripeId: { type: String, required: false },

@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        {% block title %}
+            <title>Finanza Domani</title>
+        {% endblock %}
+
+        {% block description %}
+            <meta name="description" content="Il sito che ti guida nei tuoi investimenti in borsa">
+        {% endblock %}
+
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css">
+        <link href="/styles/account.css" rel="stylesheet">
+        <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js" ></script>
+
+        <!-- data table -->
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.13/sorting/datetime-moment.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+    </head>
+
+<body>
+
+
+<div class="ui stackable grid">
+    <div class="row">
+        <div class="three wide column">
+            <a href="/"><img src="https://dato-images.imgix.net/702/1485530920-finanzadomani-png?auto=format&h=40&fit=crop&crop=entropy."> </a></i>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui secondary pointing menu">
+                <a class="item active" href="/account/">
+                    <i class="user icon"></i> I tuoi dati personali
+                </a>
+                <a class="item">
+                    <i class="newspaper icon"></i> Abbonamento
+                </a>
+                <a class="item">
+                    <i class="euro icon"></i> Dati di fatturazione
+                </a>
+                 <a class="item">
+                    <i class="credit card alternative icon"></i> Metodo di pagamento
+                </a>
+            </div>
+
+            {% block flashMessageBlock %}
+                {% if expressFlash !='' %}
+                    <div class="ui small warning message">
+                        <i class="close icon"></i>
+                        {{expressFlash}}
+                    </div>
+
+
+                    <script type="text/javascript">
+                        $('.message .close')
+                          .on('click', function() {
+                            $(this)
+                              .closest('.message')
+                              .transition('fade')
+                            ;
+                          })
+                        ;
+
+                    </script>
+                {% endif %}
+
+            {% endblock %}
+
+            {% block content %}
+
+
+            {% endblock %}
+        </div>
+
+    </div>
+</div>
+
+{% block myScript %}{% endblock %}
+
+</body>
+</html>
