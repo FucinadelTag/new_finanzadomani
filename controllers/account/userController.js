@@ -1,17 +1,9 @@
 var FdTUsers  = require('../../models/User');
 
 
-exports.index = async function(req, res, next) {
+exports.index = function(req, res, next) {
     //res.send('HOME');
-    let user = await FdTUsers.findOne({_id: '58d05a7c6d607c0e90f7f26e'}).exec();
-
-    console.log (user);
-
    res.render('account/index', { user: req.user, expressFlash: req.flash('success') });
-};
-
-exports.pagamento = function(req, res, next) {
-   res.render('account/pagamento', { user: req.user, expressFlash: req.flash('success') });
 };
 
 
@@ -28,5 +20,61 @@ exports.edit = function(req, res, next) {
     });
 
 
+
+};
+
+exports.pagamento = function(req, res, next) {
+   res.render('account/pagamento', { user: req.user, expressFlash: req.flash('success') });
+};
+
+
+exports.pagamentoEdit = function(req, res, next) {
+
+    const formData = (req.body);
+    console.log (formData);
+    const id = formData._id;
+
+
+    let indirizzo_fatturazione = {
+        ragionesociale: formData.ragionesociale,
+        codicefiscale_iva: formData.codicefiscale_iva,
+        address_line1: formData.address_line1,
+        address_city: formData.address_city,
+        address_state: formData.address_state,
+        address_zip: formData.address_zip
+    }
+
+
+    FdTUsers.findOneAndUpdate({_id: id}, {nome_carta: formData.nome_carta, stripeToken: formData.stripeToken, indirizzo_fatturazione: indirizzo_fatturazione}, { new: true, upsert: false })
+        .exec(function (err, updated) {
+
+            req.flash('success', 'Dati Aggiornati con successo');
+            res.redirect('/account/pagamento');
+    });
+
+    // delete formData._id;
+    // delete formData.articoloId;
+
+    // Articoli.findById(articoloId, function (err, articolo) {
+
+    //     if (paragrafoId != ''){
+    //         let paragrafo = articolo.paragrafi.id(paragrafoId);
+
+    //         paragrafo.set (formData);
+    //     } else {
+    //         articolo.paragrafi.push(formData);
+    //     }
+
+    //     paragrafiSorted = _.sortBy (articolo.paragrafi, ['ordine']);
+
+    //     articolo.paragrafi = paragrafiSorted;
+
+    //     articolo.save(function (err) {
+    //         if (err) return console.error(err);
+    //         req.flash('success', 'Paragrafo salvato con successo');
+    //         res.redirect('/admin/articoli/vedi/' + articoloId + '#/paragrafi');
+    //     });
+
+    // });
 
 };

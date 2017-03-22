@@ -7,38 +7,39 @@
 <div class="ui two column centered grid">
   <div class="column">
 
-        <form class="ui big form" method="post" action="/account/edit" id="payment-form">
+        <form class="ui big form" method="post" action="/account/pagamento/edit" id="payment-form">
 
         <input type="hidden" name="_id" value="{{user.getFdtUserId()}}">
+        <input type="hidden" name="stripeToken" value="">
 
             <h1 class="ui dividing header">Dati di Fatturazione</h1>
             <div class="two fields">
                 <div class="field required">
                     <label>Ragione Sociale / Intestatario della fattura</label>
-                    <input type="text" name="ragionesociale" value="{{user.billing.ragionesociale}}" placeholder="Intestatario della fattura">
+                    <input type="text" name="ragionesociale" value="{{user.getIndirizzoFatturazione().ragionesociale}}" placeholder="Intestatario della fattura">
                 </div>
                 <div class="field required">
                     <label>Codice Fiscale/Partita IVA</label>
-                    <input type="text" name="codicefiscale_iva" value="{{user.billing.codicefiscale_iva}}" placeholder="Codice Fiscale o Partiva Iva">
+                    <input type="text" name="codicefiscale_iva" value="{{user.getIndirizzoFatturazione().codicefiscale_iva}}" placeholder="Codice Fiscale o Partiva Iva">
                 </div>
             </div>
                 <div class="field required">
                     <label>Indirizzo e Numero civico di fatturazione</label>
-                    <input type="text" name="address_line1" value="{{user.billing.address_line1}}" placeholder="Indirizzo compreso numero civico">
+                    <input type="text" name="address_line1" value="{{user.getIndirizzoFatturazione().address_line1}}" placeholder="Indirizzo compreso numero civico">
                 </div>
 
             <div class="three fields">
-                <div class="field">
+                <div class="field required">
                     <label>Città</label>
-                    <input type="text" name="address_city" value="{{user.billing.address_city}}" placeholder="Citta">
+                    <input type="text" name="address_city" value="{{user.getIndirizzoFatturazione().address_city}}" placeholder="Citta">
                 </div>
                 <div class="field required">
                     <label>Provincia</label>
-                    <input type="text" name="address_state" value="{{user.billing.address_state}}" placeholder="Provincia">
+                    <input type="text" name="address_state" value="{{user.getIndirizzoFatturazione().address_state}}" placeholder="Provincia">
                 </div>
-                <div class="field">
+                <div class="field required">
                     <label>CAP</label>
-                    <input type="number" name="address_zip" value="{{user.billing.address_zip}}" placeholder="Codice di avviamento postale">
+                    <input type="number" name="address_zip" value="{{user.getIndirizzoFatturazione().address_zip}}" placeholder="Codice di avviamento postale">
                 </div>
             </div>
 
@@ -46,7 +47,7 @@
             <h2 class="ui dividing header">Dati carta di credito</h2>
             <div class="field required">
                 <label>Nome sulla carta</label>
-                <input type="text" name="nome_carta" value="{{user.getCognome()}} {{user.getNome()}}" placeholder="Nome">
+                <input type="text" name="nome_carta" value="{{user.getNomeCarta()}}" placeholder="Nome">
             </div>
             <div class="field">
                 <label for="card-element">Numero carta - Validità - Codice 3 cifre</label>
@@ -54,13 +55,13 @@
                 <div id="card-element">
 
                 </div>
+                <p></p>
+                <div id="card-errors">
             </div>
 
-            <div id="card-errors">
-
             </div>
 
-            <button class="ui blue button" type="submit"><i class="save icon"></i> Salva</button>
+            <button class="ui blue button salva"><i class="save icon"></i> Salva</button>
         </form>
 
   </div>
@@ -102,21 +103,50 @@
     // Create a token or display an error the form is submitted.
     const form = document.getElementById('payment-form');
 
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
+    $( ".salva" ).on( "click", async function(event) {
+        event.preventDefault();
 
-      const {token, error} = await stripe.createToken(card);
+        let options = {
+            name: $("input[name=nome_carta]").val(),
+            address_line1: $("input[name=address_line1]").val(),
+            address_city: $("input[name=address_city]").val(),
+            address_state: $("input[name=address_state]").val(),
+            address_zip: $("input[name=address_zip]").val()
 
-      if (error) {
-        // Inform the user if there was an error
-        const errorElement = document.getElementById('card-errors');
-        errorElement.textContent = error.message;
-      } else {
-        // Send the token to your server
-        console.log (token);
-        //stripeTokenHandler(token);
-      }
+        }
+        console.log (options);
+
+        const {token, error} = await stripe.createToken(card, options);
+
+        if (error) {
+            // Inform the user if there was an error
+            const errorElement = document.getElementById('card-errors');
+            errorElement.textContent = error.message;
+          } else {
+            // Send the token to your server
+            $('input[name=stripeToken]').val(token.id);
+            console.log (token);
+            $( "#payment-form" ).submit();
+            //stripeTokenHandler(token);
+          }
+
     });
+
+    // form.addEventListener('submit', async (event) => {
+    //   event.preventDefault();
+
+    //   const {token, error} = await stripe.createToken(card);
+
+    //   if (error) {
+    //     // Inform the user if there was an error
+    //     const errorElement = document.getElementById('card-errors');
+    //     errorElement.textContent = error.message;
+    //   } else {
+    //     // Send the token to your server
+    //     console.log (token);
+    //     //stripeTokenHandler(token);
+    //   }
+    // });
 
 
 
