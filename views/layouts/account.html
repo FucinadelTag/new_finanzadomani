@@ -42,7 +42,11 @@
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui secondary pointing menu">
-                <a class="item" href="/account/">
+
+                {% for menu in accountMenu %}
+                    <a class="item {{menu.active}}" href="/account/{{menu.key}}">{{menu.nome | safe}}</a>
+                {% endfor %}
+                <!-- <a class="item" href="/account/">
                     <i class="user icon"></i> I tuoi dati personali
                 </a>
                 <a class="item">
@@ -50,7 +54,7 @@
                 </a>
                  <a class="item active" href="/account/pagamento">
                     <i class="credit card alternative icon"></i> Fatturazione e pagamento
-                </a>
+                </a> -->
             </div>
 
             {% block flashMessageBlock %}

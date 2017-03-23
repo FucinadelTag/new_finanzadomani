@@ -12,3 +12,14 @@ body {
     font-size: 14px;
     color: rgba(0,0,0,.68);
 }
+
+.numero_carta_attuale {
+    color: rgba(0,0,0,.58);
+    font-weight: 700;
+    font-size: 16px;
+
+    .label {
+        color: rgba(0,0,0,.98);
+        font-weight: 500;
+    }
+}

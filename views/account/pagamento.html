@@ -4,15 +4,14 @@
 
 {% block content %}
 
-<div class="ui two column centered grid">
-  <div class="column">
 
-        <form class="ui big form" method="post" action="/account/pagamento/edit" id="payment-form">
+<div class="ui relaxed stackable grid">
+    <div class="eight wide column">
+        <form class="ui big form fatturazione" method="post" action="/account/pagamento/fatturazioneEdit">
 
         <input type="hidden" name="_id" value="{{user.getFdtUserId()}}">
-        <input type="hidden" name="stripeToken" value="">
 
-            <h1 class="ui dividing header">Dati di Fatturazione</h1>
+            <h2 class="ui dividing header"><i class="file icon"></i> Dati di Fatturazione</h2>
             <div class="two fields">
                 <div class="field required">
                     <label>Ragione Sociale / Intestatario della fattura</label>
@@ -43,8 +42,35 @@
                 </div>
             </div>
 
+            <button class="ui blue button" type="submit"><i class="save icon"></i> Salva</button>
+        </form>
 
-            <h2 class="ui dividing header">Dati carta di credito</h2>
+
+    </div>
+    <div class="eight wide column">
+
+        {% if user.getIndirizzoFatturazione() %}
+        <form class="ui big form carta" method="post" action="/account/pagamento/pagamentoEdit" id="payment-form">
+
+        <input type="hidden" name="_id" value="{{user.getFdtUserId()}}">
+        <input type="hidden" name="stripeToken" value="">
+
+
+            <h2 class="ui dividing header"><i class="stripe icon"></i> Carta di credito</h2>
+                {% if user.getDatiCartaCredito() %}
+
+                    <h3 class="ui dividing header">Carta di credito Attuale</h3>
+
+                    <div class="numero_carta_attuale">
+                        <span class="label">Carta:</span> {{user.getDatiCartaCredito().brand}} - •••• •••• •••• {{user.getDatiCartaCredito().last4}} |
+                        <span class="label">Scadenza:</span> {{user.getDatiCartaCredito().exp_month}}/{{user.getDatiCartaCredito().exp_year}}
+                    </div>
+
+
+                {% endif %}
+
+            <h3 class="ui dividing header"> Nuova carta di credito</h3>
+
             <div class="field required">
                 <label>Nome sulla carta</label>
                 <input type="text" name="nome_carta" value="{{user.getNomeCarta()}}" placeholder="Nome">
@@ -62,9 +88,12 @@
             </div>
 
             <button class="ui blue button salva"><i class="save icon"></i> Salva</button>
-        </form>
 
-  </div>
+        </form>
+        {% endif %}
+
+
+    </div>
 </div>
 
 
@@ -74,13 +103,13 @@
     <script type="text/javascript">
 
     const stripe = Stripe('pk_test_iU3Fy31AdJYYRNK7ztZdJMuf');
-    const elements = stripe.elements();
+    const elements = stripe.elements({});
 
     const style = {
         base: {
             // Add your base input styles here. For example:
-            fontSize: '16px',
-            lineHeight: '24px',
+            fontSize: '1.1em',
+            lineHeight: '2.2em',
         },
     };
 
@@ -90,8 +119,8 @@
     // Add an instance of the card Element into the `card-element` <div>
     card.mount('#card-element');
 
-    card.addEventListener('change', ({error}) => {
-
+    card.addEventListener('change', ({error, empty}) => {
+        console.log (empty);
         const displayError = document.getElementById('card-errors');
         if (error) {
             displayError.textContent = error.message;
@@ -100,18 +129,16 @@
         }
     });
 
-    // Create a token or display an error the form is submitted.
-    const form = document.getElementById('payment-form');
 
     $( ".salva" ).on( "click", async function(event) {
         event.preventDefault();
 
         let options = {
             name: $("input[name=nome_carta]").val(),
-            address_line1: $("input[name=address_line1]").val(),
-            address_city: $("input[name=address_city]").val(),
-            address_state: $("input[name=address_state]").val(),
-            address_zip: $("input[name=address_zip]").val()
+            address_line1: "{{user.getIndirizzoFatturazione().address_line1}}",
+            address_city: "{{user.getIndirizzoFatturazione().address_city}}",
+            address_state: "{{user.getIndirizzoFatturazione().address_state}}",
+            address_zip: "{{user.getIndirizzoFatturazione().address_zip}}"
 
         }
         console.log (options);
@@ -131,6 +158,100 @@
           }
 
     });
+
+    $('.ui.form.fatturazione')
+            .form({
+                fields: {
+                    ragionesociale: {
+                        identifier  : 'ragionesociale',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          }
+                        ]
+                    },
+                    codicefiscale_iva: {
+                        identifier  : 'codicefiscale_iva',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          }
+                        ]
+                    },
+                    address_line1: {
+                        identifier  : 'address_line1',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          }
+                        ]
+                    },
+                    address_city: {
+                        identifier  : 'address_city',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          }
+                        ]
+                    },
+                    address_state: {
+                        identifier  : 'address_state',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          }
+                        ]
+                    },
+                    nome_carta: {
+                        identifier  : 'nome_carta',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          }
+                        ]
+                    },
+                    address_zip: {
+                        identifier  : 'address_zip',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          },
+                          {
+                            type   : 'number',
+                            prompt : 'Inserisci un numero'
+                          },
+                          {
+                            type   : 'exactLength[5]',
+                            prompt : 'Il cap deve esssre di 5 cifre'
+                          }
+                        ]
+                    },
+                },
+                inline : true
+        });
+
+    $('.ui.form.carta')
+            .form({
+                fields: {
+                    nome_carta: {
+                        identifier  : 'nome_carta',
+                        rules: [
+                          {
+                            type   : 'empty',
+                            prompt : 'Il campo deve essere compilato'
+                          }
+                        ]
+                    }
+                },
+                inline : true
+        });
 
     // form.addEventListener('submit', async (event) => {
     //   event.preventDefault();

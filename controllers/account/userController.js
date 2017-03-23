@@ -16,7 +16,7 @@ exports.edit = function(req, res, next) {
     FdTUsers.findOneAndUpdate({_id: id}, formData, { new: true, upsert: false })
         .exec(function (err, updated) {
             req.flash('success', 'Dati Aggiornati con successo');
-            res.redirect('/account');
+            res.redirect('/account/dati');
     });
 
 
@@ -24,11 +24,30 @@ exports.edit = function(req, res, next) {
 };
 
 exports.pagamento = function(req, res, next) {
+
+    req.user.getDatiCartaCredito ();
    res.render('account/pagamento', { user: req.user, expressFlash: req.flash('success') });
 };
 
 
-exports.pagamentoEdit = function(req, res, next) {
+exports.pagamentoEdit = async function(req, res, next) {
+
+    const formData = (req.body);
+    console.log (formData);
+    const id = formData._id;
+
+
+    let userOk = await FdTUsers.findOneAndUpdate({_id: id}, {nome_carta: formData.nome_carta, stripeToken: formData.stripeToken}, { new: true, upsert: false }).exec();
+
+    let userUpdated = await req.user.updateStripeUserCreditCard(userOk);
+
+    req.flash('success', 'Carta di credito aggiornata con successo');
+    res.redirect('/account/pagamento');
+
+};
+
+
+exports.fatturazioneEdit = function(req, res, next) {
 
     const formData = (req.body);
     console.log (formData);
@@ -45,36 +64,11 @@ exports.pagamentoEdit = function(req, res, next) {
     }
 
 
-    FdTUsers.findOneAndUpdate({_id: id}, {nome_carta: formData.nome_carta, stripeToken: formData.stripeToken, indirizzo_fatturazione: indirizzo_fatturazione}, { new: true, upsert: false })
+    FdTUsers.findOneAndUpdate({_id: id}, {indirizzo_fatturazione: indirizzo_fatturazione}, { new: true, upsert: false })
         .exec(function (err, updated) {
 
-            req.flash('success', 'Dati Aggiornati con successo');
+            req.flash('success', 'Dati di Fatturazione Aggiornati con successo');
             res.redirect('/account/pagamento');
     });
-
-    // delete formData._id;
-    // delete formData.articoloId;
-
-    // Articoli.findById(articoloId, function (err, articolo) {
-
-    //     if (paragrafoId != ''){
-    //         let paragrafo = articolo.paragrafi.id(paragrafoId);
-
-    //         paragrafo.set (formData);
-    //     } else {
-    //         articolo.paragrafi.push(formData);
-    //     }
-
-    //     paragrafiSorted = _.sortBy (articolo.paragrafi, ['ordine']);
-
-    //     articolo.paragrafi = paragrafiSorted;
-
-    //     articolo.save(function (err) {
-    //         if (err) return console.error(err);
-    //         req.flash('success', 'Paragrafo salvato con successo');
-    //         res.redirect('/admin/articoli/vedi/' + articoloId + '#/paragrafi');
-    //     });
-
-    // });
 
 };
