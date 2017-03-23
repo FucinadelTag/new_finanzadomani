@@ -33,7 +33,6 @@ exports.pagamento = function(req, res, next) {
 exports.pagamentoEdit = async function(req, res, next) {
 
     const formData = (req.body);
-    console.log (formData);
     const id = formData._id;
 
 
@@ -50,7 +49,6 @@ exports.pagamentoEdit = async function(req, res, next) {
 exports.fatturazioneEdit = function(req, res, next) {
 
     const formData = (req.body);
-    console.log (formData);
     const id = formData._id;
 
 
