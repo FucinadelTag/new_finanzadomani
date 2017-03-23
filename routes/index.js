@@ -54,7 +54,7 @@ router.get('/callback',
                 }).then(function (stripeUser) {
                     return  userOb.saveStripeId (stripeUser);
                 }).then(function (user) {
-                    res.redirect(req.session.returnTo || '/user');
+                    res.redirect(req.session.returnTo || '/account');
                 });
 
 

@@ -130,10 +130,10 @@
     });
 
 
-    $( ".salva" ).on( "click", async function(event) {
+    $( ".salva" ).on( "click", function(event) {
         event.preventDefault();
 
-        let options = {
+        var options = {
             name: $("input[name=nome_carta]").val(),
             address_line1: "{{user.getIndirizzoFatturazione().address_line1}}",
             address_city: "{{user.getIndirizzoFatturazione().address_city}}",
@@ -143,19 +143,20 @@
         }
         console.log (options);
 
-        const {token, error} = await stripe.createToken(card, options);
+        //const {token, error} = stripe.createToken(card, options);
 
-        if (error) {
-            // Inform the user if there was an error
-            const errorElement = document.getElementById('card-errors');
-            errorElement.textContent = error.message;
-          } else {
-            // Send the token to your server
-            $('input[name=stripeToken]').val(token.id);
-            console.log (token);
-            $( "#payment-form" ).submit();
-            //stripeTokenHandler(token);
-          }
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                // Inform the user if there was an error
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                $('input[name=stripeToken]').val(result.token.id);
+                console.log (result.token);
+                $( "#payment-form" ).submit();
+            }
+        });
+
 
     });
 
