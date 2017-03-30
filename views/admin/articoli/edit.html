@@ -25,8 +25,8 @@
     <div class="ui active tab segment" data-tab="datiPrincipali">
         <form class="ui form" method="post" action="/admin/articoli/edit" enctype="multipart/form-data">
 
-            <!-- <div class="ui primary submit small button sticky"><i class="save icon"></i> Salva</div>
-            <div class="ui divider"></div> -->
+            <div class="ui primary submit small button sticky"><i class="save icon"></i> Salva</div>
+            <div class="ui divider"></div>
             <input type="hidden" name="_id" value="{{articolo._id}}">
 
             <div class="two fields">
@@ -132,14 +132,17 @@
 
     <div class="ui modal">
         <i class="close icon"></i>
-        <div class="header">
-            Paragrafo
-        </div>
         <form class="ui form paragrafo" id="formParagrafo" method="post" action="/admin/articoli/paragrafi/edit" enctype="multipart/form-data">
+            <div class="header">
+                Paragrafo
+            </div>
+            <div class="ui divider"></div>
+                <div class="ui primary submit small button"><i class="save icon"></i> Salva</div>
+            <div class="ui divider"></div>
             <input type="hidden" name="articoloId" value="{{articolo._id}}">
              <input type="hidden" name="_id">
 
-                <div class="required field">
+                <div class="field">
                     <label>Titolo</label>
                     <input type="text" name="titolo">
                 </div>
@@ -171,7 +174,7 @@
                 <label>Testo</label>
                 <textarea name="testo" id="testo" rows="5"></textarea>
             </div>
-            <div class="ui primary submit small button"><i class="save icon"></i> Invia</div>
+            <div class="ui primary submit small button"><i class="save icon"></i> Salva</div>
         </form>
     </div>
 
@@ -185,7 +188,7 @@
         $('.ui.form')
             .form({
                 fields: {
-                    titolo     : 'empty'
+                    testo     : 'empty'
                 },
                 inline : true
         });

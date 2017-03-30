@@ -6,6 +6,7 @@ var json_encode         = require('./lib/nunjucks/json_encode');
 var markdownToHtml      = require('./lib/nunjucks/markdownToHtml');
 var limitTo             = require('./lib/nunjucks/limitTo');
 var arrayToString       = require('./lib/nunjucks/arrayToString');
+const fdtBusboyBodyParser  = require('./lib/middleware/fdtBusboyBodyParser');
 var session             = require('express-session');
 var userObject          = require('./lib/userObject');
 var MongoSessionStore   = require('connect-mongo')(session);
@@ -15,7 +16,7 @@ var bodyParser          = require('body-parser');
 var sassMiddleware      = require('node-sass-middleware')
 var path                = require('path')
 var mongoose            = require('mongoose');
-const busboyBodyParser  = require('busboy-body-parser');
+
 
 
 var passport = require('passport');
@@ -124,7 +125,7 @@ njk.env.addFilter('arrayToString', arrayToString);
 //BODY
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(busboyBodyParser());
+app.use(fdtBusboyBodyParser({ limit: '250mb' }));
 
 var fdtUser  = require('./lib/middleware/fdtUser.js');
 app.use(fdtUser.init);

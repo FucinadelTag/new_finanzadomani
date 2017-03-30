@@ -101,3 +101,28 @@
 </div>
 
 {% endmacro %}
+
+
+{% macro no_immagine(paragrafo) %}
+
+
+<div class="row paragrafo">
+    <div class="columns">
+        <div class="row">
+            <div class="shrink columns">
+                <h2 class="subheader">
+                    {{paragrafo.titolo}}
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="shrink columns">
+                <p>{{paragrafo.testo | markdownToHtml | safe}}</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endmacro %}
