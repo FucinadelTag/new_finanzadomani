@@ -38,7 +38,6 @@ articoliSchema.virtual('url').get(function () {
     }
 
     return '#';
-
 });
 
 
