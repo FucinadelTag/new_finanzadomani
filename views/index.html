@@ -7,33 +7,30 @@
 
 
 {% for articolo in articoli | limitTo (0, 1) %}
-    <section class="title-container clearfix">
-        <div class="float-left">
-            <div class="row">
-                <div class="columns">
-                        <h1>
-                            <a href="{{articolo.url}}">
-                                {{articolo.titolo}}<br class="show-for-large-up">
-                            </a>
-                        </h1>
-                        <p>
-                            <span class="titolo_rubrica_piccolo">{{articolo.categoria.name}}</span> <small>{{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
-                        </p>
+    <section>
+        <div class="row">
+            <div class="columns">
+                    <h1>
+                        <a href="{{articolo.url}}">
+                            {{articolo.titolo}}<br class="show-for-large-up">
+                        </a>
+                    </h1>
+                    <p>
+                        <span class="titolo_rubrica_piccolo">{{articolo.categoria.name}}</span> <small>{{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
+                    </p>
 
 
-                        <p>
-                            <a href="{{articolo.url}}">
-                            <img src="{{articolo.immagine | imgx ({w: 740, h: 250})}}" />
-                            </a>
+                    <p>
+                        <a href="{{articolo.url}}">
+                        <img src="{{articolo.immagine | imgx ({w: 740, h: 250})}}" />
+                        </a>
 
-                            {{articolo.abstract| markdownToHtml | safe| truncate(750)}}
-                        </p>
-                        <a href="{{articolo.url}}">Leggi tutto</a>
+                        {{articolo.abstract| markdownToHtml | safe| truncate(750)}}
+                    </p>
+                    <a href="{{articolo.url}}">Leggi tutto</a>
 
 
-                </div>
             </div>
-
         </div>
     </section>
 {% endfor %}
