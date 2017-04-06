@@ -73,7 +73,22 @@ exports.edit = function(req, res, next) {
     const formData = (req.body);
     const id = (req.body._id);
 
-    formData.aziende = _.split (formData.aziende, ',');
+    console.log (formData);
+
+    if (_.isEmpty(req.body.aziende)) {
+         formData.aziende = null;
+    } else {
+        formData.aziende = _.split (formData.aziende, ',');
+    }
+
+    if (_.isEmpty(req.body.categoria)) {
+        delete formData.categoria;
+    }
+
+    delete formData._id;
+    console.log (formData);
+
+
 
     Articoli.findOneAndUpdate({_id: id}, formData, { new: true, upsert: false })
         .exec(function (err, updated) {
