@@ -34,9 +34,7 @@
                 {% endif %}
             </div>
             <div class="columns">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis metus neque. Integer ornare gravida felis laoreet auctor. Sed ultricies tincidunt nunc, eu commodo erat consectetur sed. Aenean rutrum eros urna, sit amet efficitur nibh elementum quis. Pellentesque vestibulum vel urna in dignissim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus vel odio posuere, fringilla odio ut, accumsan nunc. Duis posuere ornare metus, quis efficitur mi porttitor non.
-                </p>
+                {{ azienda.descrizione|markdownToHtml|safe }}
             </div>
         </div>
 

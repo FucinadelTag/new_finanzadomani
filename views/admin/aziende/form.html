@@ -27,6 +27,10 @@
 
         </div>
     </div>
+    <div class="field">
+        <label>Descrizione</label>
+        <textarea name="descrizione" id="descrizioneId"  rows="5">{{azienda.descrizione}}</textarea>
+    </div>
     <div class="ui primary submit small button"><i class="save icon"></i> Invia</div>
 </form>
 
@@ -42,6 +46,21 @@
                     categoria: 'empty'
                 },
                 inline : true
+        });
+
+
+        $(document).ready(function(){
+
+            let simplemdeDescrizione = new SimpleMDE({
+                element: $("#descrizioneId")[0],
+                spellChecker: false,
+            });
+
+            $('.ui.menu .item')
+                .tab({
+                    history: true,
+                    historyType : 'hash'
+                });
         });
 
 </script>

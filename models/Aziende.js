@@ -15,6 +15,7 @@ var aziendeSchema = new Schema({
     isin: { type: String, required: true },
     immagine: { type: String, required: false},
     categoria: { type: String, required: false},
+    descrizione: { type: String},
     articoli: [{ type: Schema.Types.ObjectId, ref: 'Articoli' }]
 });
 

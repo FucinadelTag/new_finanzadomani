@@ -19,10 +19,9 @@
                         <span class="titolo_rubrica_piccolo">{{articolo.categoria.name}}</span> <small>{{articolo.dataPubblicazione | date("DD-MM-YYYY")}}</small>
                     </p>
 
-
                     <p>
                         <a href="{{articolo.url}}">
-                        <img src="{{articolo.immagine | imgx ({w: 740, h: 250})}}" />
+                        <img src="{{articolo.immagine | imgx ({w: 740, h: 370})}}" />
                         </a>
 
                         {{articolo.abstract| markdownToHtml | safe| truncate(750)}}
