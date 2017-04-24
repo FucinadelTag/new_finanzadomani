@@ -34,7 +34,9 @@
                 {% endif %}
             </div>
             <div class="columns">
-                {{ azienda.descrizione|markdownToHtml|safe }}
+                {% if azienda.descrizione %}
+                    {{ azienda.descrizione|markdownToHtml|safe }}
+                {% endif %}
             </div>
         </div>
 

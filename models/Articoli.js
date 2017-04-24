@@ -17,6 +17,7 @@ var paragrafiSchema = new Schema({
     testo: { type: String, required: true},
     immagine: { type: String},
     ordine: { type: Number, required: false, default: 0 },
+    invendita: { type: String, required: false, default: 'no' },
     layout: {type: String, default: 'img_sinistra'}
 });
 

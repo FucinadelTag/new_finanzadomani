@@ -38,6 +38,7 @@ $button-background-hover: scale-color($evidence-color, $lightness: -15%);
 h1 {
 
         font-weight: 900;
+        font-size: 2.5rem;
     }
 
 
@@ -215,12 +216,19 @@ span.titolo_rubrica_piccolo {
 
     .titolo {
         padding-bottom: rem-calc(3);
+        padding-left: rem-calc(3);
         font-weight: 800;
+    }
+
+    .linkArchivio {
+        text-align: right;
+        font-style: italic;
+        font-size: rem-calc(15);
     }
 
     article {
 
-        background-color: scale-color($black, $lightness: 95%);
+        background-color: #E3EAF0;
         padding: rem-calc(5);
         margin-bottom: rem-calc(3);
 

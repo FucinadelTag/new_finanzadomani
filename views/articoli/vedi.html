@@ -60,76 +60,57 @@
             </div>
             {% endif %}
 
-        {%else%}
-
-            <!-- BOX ABBONAMENTO -->
-            <div class="row box_promo_articolo">
-                <div class="columns">
-                    <div class="row">
-                        <div class="columns titolo">
-                            <h2>Devo comprare o vendere?</h2>
-                            <h3>Abbonati per leggere i nostri consigli</h3>
-                        </div>
-                    </div>
-
-                    <div class="row align-middle">
-                        <div class="columns medium-6">
-                            <h3>Ogni giorno per i nostri abbonati</h3>
-                            <ol>
-                                <li>
-                                    Consigli di investimento quotidiani
-                                </li>
-                                <li>
-                                    Conclusioni utili ad ogni notizia
-                                </li>
-                                <li>
-                                    Portafogli costantemente aggiornati
-                                </li>
-                                <li>
-                                    Aggiornamenti in tempo reale
-                                </li>
-                            </ol>
-
-
-                        </div>
-                        <div class="columns">
-
-                                <span class="prezzo_intero">€ 99,00</span> <i>Sconto del 50%</i><br>
-
-                                <span class="prezzo">€ 49,50 + IVA</span><br>
-                                <small>Sconto valido fino <i><span class="dataPromo">al 30 Maggio 2017</span></i></small><br>
-                                <div class="button ctaButton loginButton" >Prova per 15 Giorni!</div><br>
-                            <br>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         {% endif %}
 
         <div class="spazio_bianco"></div>
 
 
         {% for paragrafo in articolo.paragrafi  %}
-            {% if paragrafo.layout == 'img_sinistra' %}
-                {{ paragrafi.img_sinistra(paragrafo) }}
-            {% endif %}
 
-            {% if paragrafo.layout == 'img_destra' %}
-                {{ paragrafi.img_destra(paragrafo) }}
-            {% endif %}
+            {% if user.isAbbonato %}
+                {% if paragrafo.layout == 'img_sinistra' %}
+                    {{ paragrafi.img_sinistra(paragrafo) }}
+                {% endif %}
 
-            {% if paragrafo.layout == 'img_sopra' %}
-                {{ paragrafi.img_sopra(paragrafo) }}
-            {% endif %}
+                {% if paragrafo.layout == 'img_destra' %}
+                    {{ paragrafi.img_destra(paragrafo) }}
+                {% endif %}
 
-            {% if paragrafo.layout == 'img_sotto' %}
-                {{ paragrafi.img_sotto(paragrafo) }}
-            {% endif %}
+                {% if paragrafo.layout == 'img_sopra' %}
+                    {{ paragrafi.img_sopra(paragrafo) }}
+                {% endif %}
 
-            {% if paragrafo.layout == '' %}
-                {{ paragrafi.no_immagine(paragrafo) }}
+                {% if paragrafo.layout == 'img_sotto' %}
+                    {{ paragrafi.img_sotto(paragrafo) }}
+                {% endif %}
+
+                {% if paragrafo.layout == '' %}
+                    {{ paragrafi.no_immagine(paragrafo) }}
+                {% endif %}
+            {% else %}
+                {% if paragrafo.invendita == 'si' %}
+                    {{ paragrafi.invendita(paragrafo) }}
+                {% else %}
+                    {% if paragrafo.layout == 'img_sinistra' %}
+                        {{ paragrafi.img_sinistra(paragrafo) }}
+                    {% endif %}
+
+                    {% if paragrafo.layout == 'img_destra' %}
+                        {{ paragrafi.img_destra(paragrafo) }}
+                    {% endif %}
+
+                    {% if paragrafo.layout == 'img_sopra' %}
+                        {{ paragrafi.img_sopra(paragrafo) }}
+                    {% endif %}
+
+                    {% if paragrafo.layout == 'img_sotto' %}
+                        {{ paragrafi.img_sotto(paragrafo) }}
+                    {% endif %}
+
+                    {% if paragrafo.layout == '' %}
+                        {{ paragrafi.no_immagine(paragrafo) }}
+                    {% endif %}
+                {% endif %}
             {% endif %}
 
         {% endfor %}

@@ -1,3 +1,64 @@
+{% macro invendita(paragrafo) %}
+
+
+<div class="row paragrafo">
+
+    <div class="columns clearfix">
+            <h2>
+                {{paragrafo.titolo}}
+            </h2>
+
+            <!-- BOX ABBONAMENTO -->
+            <div class="row box_promo_articolo">
+                <div class="columns">
+                    <div class="row">
+                        <div class="columns titolo">
+                            <h2>Contenuto a Pagamento</h2>
+                            <h3>Abbonati per leggere i nostri consigli</h3>
+                        </div>
+                    </div>
+
+                    <div class="row align-middle">
+                        <div class="columns">
+
+                                <span class="prezzo_intero">€ 33,00</span> <i>Sconto del 50%</i><br>
+
+                                <span class="prezzo">€ 16,50 + IVA</span> al mese<br>
+                                <small>Sconto valido fino <i><span class="dataPromo">al 30 Giugno 2017</span></i></small><br>
+                                <div class="button ctaButton loginButton" >Prova per 30 Giorni!</div><br>
+                            <br>
+
+                        </div>
+                        <div class="columns small-12 medium-6">
+                            <h3>Ogni giorno per i nostri abbonati</h3>
+                            <ol>
+                                <li>
+                                    Consigli di investimento quotidiani
+                                </li>
+                                <li>
+                                    Conclusioni utili ad ogni notizia
+                                </li>
+                                <li>
+                                    Portafogli costantemente aggiornati
+                                </li>
+                                <li>
+                                    Aggiornamenti in tempo reale
+                                </li>
+                            </ol>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+</div>
+
+{% endmacro %}
+
+
 {% macro img_sinistra(paragrafo) %}
 
 

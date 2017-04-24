@@ -96,10 +96,10 @@
 
                 </div>
             </div>
-            <div class="field">
+            <!-- <div class="field">
                 <label>Consiglio</label>
                 <textarea name="consiglio" id="consiglioId"  rows="5">{{articolo.consiglio}}</textarea>
-            </div>
+            </div> -->
             <div class="ui primary submit small button sticky"><i class="save icon"></i> Salva</div>
         </form>
     </div>
@@ -113,7 +113,7 @@
                     {% endif %}
                 </div>
                 <div class="content">
-                    {{paragrafo.titolo}} | {{paragrafo.ordine}} | {{paragrafo.layout}}
+                    {{paragrafo.titolo}} | {{paragrafo.ordine}} | {{paragrafo.layout}} | {{paragrafo.invendita}}
                     <div class="meta">
                         <span>{{paragrafo.testo | markdownToHtml | safe}}</span>
                     </div>
@@ -170,6 +170,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="field">
+                    <label>In vendita</label>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="invendita" value="{{articolo.invendita}}">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">In vendita</div>
+                        <div class="menu">
+                            <div class="item" data-value="no">No</div>
+                            <div class="item" data-value="si">Si</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="field required">
                 <label>Testo</label>
@@ -200,10 +212,10 @@
                 element: $("#abstractId")[0],
                 spellChecker: false,
             });
-            let simplemdeConsiglio = new SimpleMDE({
-                element: $("#consiglioId")[0],
-                spellChecker: false,
-            });
+            // let simplemdeConsiglio = new SimpleMDE({
+            //     element: $("#consiglioId")[0],
+            //     spellChecker: false,
+            // });
 
             $('.ui.menu .item')
                 .tab({

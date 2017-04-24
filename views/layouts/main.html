@@ -114,31 +114,38 @@
 
     <div class="row" id="content">
 
-        <div class="small-12 medium-9 columns centro">
+        <div class="small-12 medium-8 columns centro">
         {% block content %}{% endblock %}
         </div>
 
 
-        <div class="small-12 medium-3 columns rightMenu">
+        <div class="small-12 medium-4 columns rightMenu">
             <nav>
                 <div class="destra">
                     <div class="row">
                         <div class="columns">
                             <div class="titolo">
-                                Idee di investimento
+                                Trading del Giorno
                             </div>
 
                              {% for idea in ideeInvestimento %}
-                             <article>
+                             <a href="{{idea.url}}"><article>
                                 <small>{{idea.dataPubblicazione | date("DD-MM-YYYY")}}</small>
                                 <br>
-                                <h2><a href="{{idea.url}}">{{ idea.titolo }}</a></h2>
-                             </article>
+                                <h2>{{ idea.titolo }}</h2>
+                                <p>
+                                    <img src="{{idea.immagine | imgx ({w: 300, h: 150})}}" />
+                                </p>
+                             </article></a>
 
 
 
 
                             {% endfor %}
+
+                            <div class="linkArchivio">
+                                <a href="/articoli/idee-di-investimento">Archivio</a>
+                            </div>
                         </div>
                     </div>
 
