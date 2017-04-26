@@ -7,7 +7,7 @@ exports.index = function(req, res, next) {
     //res.send('HOME');
 
 
-    let PromisesCategoriesInHome = PostCategory.find().where('inhome').equals('si').exec();
+    let PromisesCategoriesInHome = PostCategory.find().where('inhome').equals('si').sort('ordine').exec();
 
     PromisesCategoriesInHome.then (function(categorie) {
 
@@ -23,11 +23,25 @@ exports.index = function(req, res, next) {
                                 exec();
 
 
-        let arrayPromises = [promiseArticoli];
+        var arrayPromises = [promiseArticoli];
+
+        __.each (categorie, function (categoria){
+            let promiseCategoria =  Articoli.
+                                    find().
+                                    where('categoria').equals(categoria._id).
+                                    where('stato').equals('pubblicato').
+                                    sort('-dataPubblicazione').
+                                    populate('categoria').
+                                    limit(10).
+                                    exec();
+
+            arrayPromises.push (promiseCategoria);
+        });
+
+        console.log (arrayPromises);
 
         Promise.all(arrayPromises).then(values => {
-
-            res.render('index', { articoli: values[0]})
+            res.render('index', { articoli: values[0], news: values[1], analisi_tecnica: values[2], pillole: values[3]})
 
         });
 
