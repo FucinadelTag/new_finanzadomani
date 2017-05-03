@@ -132,10 +132,10 @@ span.titolo_rubrica_piccolo {
 
         .testo_evidenza {
             border: solid 1px scale-color($black, $lightness: 80%);
-            margin-right: rem-calc(10);
-            margin-left: rem-calc(10);
-            padding: rem-calc(10);
-            background-color: scale-color($black, $lightness: 90%);
+            margin-right: rem-calc(1);
+            margin-left: rem-calc(1);
+            padding: rem-calc(5);
+            background-color: scale-color($colore-evidenza, $lightness: 50%);
         }
 
         .box_promo_articolo {

@@ -62,7 +62,7 @@
 {% macro img_sinistra(paragrafo) %}
 
 
-<div class="row paragrafo">
+<div class="row paragrafo {% if paragrafo.invendita == 'si' %}testo_evidenza{% endif %}">
 
     <div class="columns clearfix">
             <h2>
@@ -82,7 +82,7 @@
 {% macro img_destra(paragrafo) %}
 
 
-<div class="row paragrafo">
+<div class="row paragrafo {% if paragrafo.invendita == 'si' %}testo_evidenza{% endif %}">
 
     <div class="columns clearfix">
             <h2>
@@ -101,7 +101,7 @@
 {% macro img_sopra(paragrafo) %}
 
 
-<div class="row paragrafo">
+<div class="row paragrafo {% if paragrafo.invendita == 'si' %}testo_evidenza{% endif %}">
     <div class="columns">
         <div class="row">
             <div class="shrink columns">
@@ -134,7 +134,7 @@
 {% macro img_sotto(paragrafo) %}
 
 
-<div class="row paragrafo">
+<div class="row paragrafo {% if paragrafo.invendita == 'si' %}testo_evidenza{% endif %}">
     <div class="columns">
         <div class="row">
             <div class="shrink columns">
