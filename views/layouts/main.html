@@ -135,6 +135,31 @@
                                     </p>
                                  </article></a>
                             {% endfor %}
+
+                            <div class="linkArchivio">
+                                <a href="/articoli/idee-di-investimento">Archivio Idee di Investimento</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spazio_bianco"></div>
+
+                    <div class="row">
+                        <div class="columns">
+                            <div class="titolo">
+                                Appuntamenti della Giornata
+                            </div>
+
+                             {% for appuntamenti in appuntamentiSettimana %}
+                                 <a href="{{appuntamenti.url}}"><article>
+                                    <small>{{appuntamenti.dataPubblicazione | date("DD-MM-YYYY")}}</small>
+                                    <br>
+                                    <h2>{{ appuntamenti.titolo }}</h2>
+                                    <p>
+                                        <img src="{{appuntamenti.immagine | imgx ({w: 300, h: 150})}}" />
+                                    </p>
+                                 </article></a>
+                            {% endfor %}
                         </div>
                     </div>
 
@@ -142,6 +167,7 @@
                 </div>
              </nav>
         </div>
+
     </div>
 
     <div class="spazio_bianco"></div>

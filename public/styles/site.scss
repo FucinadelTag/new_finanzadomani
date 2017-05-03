@@ -214,7 +214,11 @@ span.titolo_rubrica_piccolo {
 
 .destra {
 
+
     .titolo {
+        border-top-width: 5px;
+        border-top-style: solid;
+        border-top-color: scale-color($black, $lightness: 10%);
         padding-bottom: rem-calc(3);
         padding-left: rem-calc(3);
         font-weight: 800;
@@ -228,9 +232,10 @@ span.titolo_rubrica_piccolo {
 
     article {
 
-        background-color: #E3EAF0;
+        background-color: scale-color(#E3EAF0, $lightness: 50%);
         padding: rem-calc(5);
         margin-bottom: rem-calc(3);
+        border: solid 1px scale-color($black, $lightness: 80%);
 
         h2 {
             font-size: rem-calc(16);
