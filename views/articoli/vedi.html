@@ -46,24 +46,6 @@
                 <span class="abstract">{{articolo.abstract|markdownToHtml|safe}}</span>
             </div>
         </div>
-        <!-- Consiglione -->
-        {% if user.isAbbonato %}
-
-            {% if articolo.consiglio %}
-            <div class="row">
-                <div class="columns testo_evidenza">
-
-                    <h2>Come Investire</h2>
-                    <hr>
-                    <span>{{articolo.consiglio|markdownToHtml|safe}}</span>
-                </div>
-            </div>
-            {% endif %}
-
-        {% endif %}
-
-        <div class="spazio_bianco"></div>
-
 
         {% for paragrafo in articolo.paragrafi  %}
 

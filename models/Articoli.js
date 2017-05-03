@@ -25,6 +25,7 @@ var paragrafiSchema = new Schema({
 var articoliSchema = new Schema({
     titolo: { type: String, required: true, trim: true },
     stato: { type: String, default: 'draft', index: true },
+    importante: { type: String, required: false, default: 'no' },
     dataPubblicazione: { type: Date, default: new Date (), index: true},
     immagine: { type: String},
     abstract: { type: String},

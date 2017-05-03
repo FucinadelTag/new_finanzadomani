@@ -49,7 +49,7 @@
                   </div>
                 </div>
             </div>
-            <div class="three fields">
+            <div class="four fields">
                 <div class="field">
                     <label>Data Pubblicazione</label>
                     <input type="date" name="dataPubblicazione" value="{{articolo.dataPubblicazione | date("YYYY-MM-DD")}}">
@@ -66,6 +66,18 @@
                             {% endfor %}
                       </div>
                   </div>
+                </div>
+                <div class="field">
+                    <label>importante</label>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="importante" value="{{articolo.importante}}">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Importante</div>
+                        <div class="menu">
+                            <div class="item" data-value="no">No</div>
+                            <div class="item" data-value="si">Si</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="field">
                     <label>Aziende</label>

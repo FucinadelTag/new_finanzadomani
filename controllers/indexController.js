@@ -15,11 +15,11 @@ exports.index = function(req, res, next) {
 
         let promiseArticoli =   Articoli.
                                 find().
-                                where('stato').equals('pubblicato').
+                                where('importante').equals('si').
                                 where ('categoria').in(arrayIdCategorie).
                                 sort('-dataPubblicazione').
                                 populate('categoria').
-                                limit(10).
+                                limit(3).
                                 exec();
 
 
@@ -29,10 +29,11 @@ exports.index = function(req, res, next) {
             let promiseCategoria =  Articoli.
                                     find().
                                     where('categoria').equals(categoria._id).
+                                    where('importante').ne('si').
                                     where('stato').equals('pubblicato').
                                     sort('-dataPubblicazione').
                                     populate('categoria').
-                                    limit(10).
+                                    limit(4).
                                     exec();
 
             arrayPromises.push (promiseCategoria);

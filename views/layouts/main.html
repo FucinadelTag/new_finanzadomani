@@ -94,9 +94,6 @@
 
     <ul class="menu align-left principale vertical medium-horizontal" id="menuPrincipale">
             <li class="{{ class }}">
-                <a href="/articoli/pillole-2">Pillole</a>
-            </li>
-            <li class="{{ class }}">
                 <a href="/articoli/news-2">News</a>
             </li>
             <li class="{{ class }}">
@@ -129,23 +126,15 @@
                             </div>
 
                              {% for idea in ideeInvestimento %}
-                             <a href="{{idea.url}}"><article>
-                                <small>{{idea.dataPubblicazione | date("DD-MM-YYYY")}}</small>
-                                <br>
-                                <h2>{{ idea.titolo }}</h2>
-                                <p>
-                                    <img src="{{idea.immagine | imgx ({w: 300, h: 150})}}" />
-                                </p>
-                             </article></a>
-
-
-
-
+                                 <a href="{{idea.url}}"><article>
+                                    <small>{{idea.dataPubblicazione | date("DD-MM-YYYY")}}</small>
+                                    <br>
+                                    <h2>{{ idea.titolo }}</h2>
+                                    <p>
+                                        <img src="{{idea.immagine | imgx ({w: 300, h: 150})}}" />
+                                    </p>
+                                 </article></a>
                             {% endfor %}
-
-                            <div class="linkArchivio">
-                                <a href="/articoli/idee-di-investimento">Archivio</a>
-                            </div>
                         </div>
                     </div>
 

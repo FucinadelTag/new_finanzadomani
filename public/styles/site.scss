@@ -27,7 +27,7 @@ $global-font-size: 100%;
 
 $colore-princpiale: #ffffff;
 
-$colore-evidenza: #ff0a0a;
+$colore-evidenza: #E3EAF0;
 
 $evidence-color: #ffed00 !default;
 $button-background-hover: scale-color($evidence-color, $lightness: -15%);
@@ -204,7 +204,7 @@ span.titolo_rubrica_piccolo {
 
 .rightMenu {
 
-    border-left: solid 1px scale-color($black, $lightness: 80%);
+    // border-left: solid 1px scale-color($black, $lightness: 80%);
 
 }
 
@@ -242,3 +242,21 @@ span.titolo_rubrica_piccolo {
 
 
 }
+
+.box-rubrica {
+    margin-right: 5px;
+    border: solid 1px scale-color($black, $lightness: 80%);
+    border-top-width: 5px;
+    border-top-style: solid;
+    border-top-color: scale-color($black, $lightness: 10%);
+}
+
+.news {
+    background-color: scale-color($colore-evidenza, $lightness: 20%);
+}
+
+.analisi_tecnica {
+    background-color: scale-color($colore-evidenza, $lightness: 40%);
+}
+
+
